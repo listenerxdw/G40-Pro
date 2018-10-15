@@ -144,7 +144,11 @@ class Registration: UIViewController {
         signUpButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         signUpButton.widthAnchor.constraint(equalToConstant: 140).isActive = true
         signUpButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+<<<<<<< HEAD:G40-Pro/Instagram_Pro/Registration.swift
         signUpButton.bottomAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 80).isActive = true
+=======
+        signUpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -140).isActive = true
+>>>>>>> 3f51e37bdf6b82f4dc435da5ce93fade823d942f:Instagram_Pro/Registration.swift
         
         
     }
