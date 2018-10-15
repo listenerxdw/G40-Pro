@@ -144,7 +144,7 @@ class Registration: UIViewController {
         signUpButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         signUpButton.widthAnchor.constraint(equalToConstant: 140).isActive = true
         signUpButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        signUpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -180).isActive = true
+        signUpButton.bottomAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 80).isActive = true
         
         
     }
