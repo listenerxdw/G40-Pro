@@ -80,11 +80,6 @@ class Registration: UIViewController {
     
     
     
-    
-    
-    
-    
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -100,7 +95,7 @@ class Registration: UIViewController {
         setupSignupButton()
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -134,20 +129,13 @@ class Registration: UIViewController {
     fileprivate func setupInputFields() {
         let stackView = UIStackView(arrangedSubviews: [emailTextField, fullNameTextField, passwordTextField])
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
         stackView.distribution = .fillEqually
         stackView.axis = .vertical
         stackView.spacing = 10
         
         view.addSubview(stackView)
         
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: uploadProfilePicBtn.bottomAnchor, constant: 30),
-            stackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 60),
-            stackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -60),
-            stackView.heightAnchor.constraint(equalToConstant: 160)
-            ])
+        stackView.anchor(top: uploadProfilePicBtn.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 30, paddingLeft: 40, paddingBottom: 0, paddingRight: 40, width: 0, height: 160)
         
     }
     
@@ -157,9 +145,40 @@ class Registration: UIViewController {
         signUpButton.widthAnchor.constraint(equalToConstant: 140).isActive = true
         signUpButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         signUpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -180).isActive = true
+        
+        
     }
     
     
-
+}
+extension UIView {
+    func anchor(top: NSLayoutYAxisAnchor?, left: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, right: NSLayoutXAxisAnchor?,  paddingTop: CGFloat, paddingLeft: CGFloat, paddingBottom: CGFloat, paddingRight: CGFloat, width: CGFloat, height: CGFloat) {
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        if let top = top {
+            self.topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
+        }
+        
+        if let left = left {
+            self.leftAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true
+        }
+        
+        if let bottom = bottom {
+            bottomAnchor.constraint(equalTo: bottom, constant: paddingBottom).isActive = true
+        }
+        
+        if let right = right {
+            rightAnchor.constraint(equalTo: right, constant: -paddingRight).isActive = true
+        }
+        
+        if width != 0 {
+            widthAnchor.constraint(equalToConstant: width).isActive = true
+        }
+        
+        if height != 0 {
+            heightAnchor.constraint(equalToConstant: height).isActive = true
+        }
+    }
 }
 
