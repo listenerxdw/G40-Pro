@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		645AD7EC2174B9EE00D9852B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 645AD7EB2174B9EE00D9852B /* GoogleService-Info.plist */; };
+		AD111AD4217603F00096CEBE /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD111AD3217603F00096CEBE /* TabBar.swift */; };
+		AD111AD6217604860096CEBE /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD111AD5217604860096CEBE /* Profile.swift */; };
+		AD111AD8217610AB0096CEBE /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD111AD7217610AB0096CEBE /* ProfileHeader.swift */; };
+		AD111ADA217620D80096CEBE /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD111AD9217620D80096CEBE /* Login.swift */; };
+		AD111ADC21763A2A0096CEBE /* ActivityFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD111ADB21763A2A0096CEBE /* ActivityFeed.swift */; };
+		AD111ADE21763A380096CEBE /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD111ADD21763A380096CEBE /* Photo.swift */; };
+		AD111AE021763A430096CEBE /* Discover.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD111ADF21763A430096CEBE /* Discover.swift */; };
+		AD111AE221763A500096CEBE /* UserFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD111AE121763A500096CEBE /* UserFeed.swift */; };
 		ADFE520821746F8A0000D925 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFE520721746F8A0000D925 /* AppDelegate.swift */; };
 		ADFE520A21746F8A0000D925 /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFE520921746F8A0000D925 /* Registration.swift */; };
 		ADFE520D21746F8A0000D925 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADFE520B21746F8A0000D925 /* Main.storyboard */; };
@@ -20,6 +28,14 @@
 /* Begin PBXFileReference section */
 		645AD7EB2174B9EE00D9852B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9E381C1DD85E61550206C815 /* Pods-Instagram_Pro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram_Pro.release.xcconfig"; path = "Pods/Target Support Files/Pods-Instagram_Pro/Pods-Instagram_Pro.release.xcconfig"; sourceTree = "<group>"; };
+		AD111AD3217603F00096CEBE /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		AD111AD5217604860096CEBE /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		AD111AD7217610AB0096CEBE /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
+		AD111AD9217620D80096CEBE /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		AD111ADB21763A2A0096CEBE /* ActivityFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFeed.swift; sourceTree = "<group>"; };
+		AD111ADD21763A380096CEBE /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		AD111ADF21763A430096CEBE /* Discover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discover.swift; sourceTree = "<group>"; };
+		AD111AE121763A500096CEBE /* UserFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFeed.swift; sourceTree = "<group>"; };
 		ADFE520421746F8A0000D925 /* Instagram_Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram_Pro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADFE520721746F8A0000D925 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ADFE520921746F8A0000D925 /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
@@ -61,6 +77,64 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AD111ACC217602DC0096CEBE /* LoginAndRegistration */ = {
+			isa = PBXGroup;
+			children = (
+				ADFE520921746F8A0000D925 /* Registration.swift */,
+				AD111AD9217620D80096CEBE /* Login.swift */,
+			);
+			path = LoginAndRegistration;
+			sourceTree = "<group>";
+		};
+		AD111ACD2176030F0096CEBE /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				AD111AD3217603F00096CEBE /* TabBar.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		AD111ACE217603160096CEBE /* UserFeed */ = {
+			isa = PBXGroup;
+			children = (
+				AD111AE121763A500096CEBE /* UserFeed.swift */,
+			);
+			path = UserFeed;
+			sourceTree = "<group>";
+		};
+		AD111ACF2176031F0096CEBE /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				AD111ADF21763A430096CEBE /* Discover.swift */,
+			);
+			path = Discover;
+			sourceTree = "<group>";
+		};
+		AD111AD02176032B0096CEBE /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				AD111ADD21763A380096CEBE /* Photo.swift */,
+			);
+			path = Photo;
+			sourceTree = "<group>";
+		};
+		AD111AD1217603340096CEBE /* ActivityFeed */ = {
+			isa = PBXGroup;
+			children = (
+				AD111ADB21763A2A0096CEBE /* ActivityFeed.swift */,
+			);
+			path = ActivityFeed;
+			sourceTree = "<group>";
+		};
+		AD111AD2217603410096CEBE /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				AD111AD5217604860096CEBE /* Profile.swift */,
+				AD111AD7217610AB0096CEBE /* ProfileHeader.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		ADFE51FB21746F8A0000D925 = {
 			isa = PBXGroup;
 			children = (
@@ -82,9 +156,15 @@
 		ADFE520621746F8A0000D925 /* Instagram_Pro */ = {
 			isa = PBXGroup;
 			children = (
-				ADFE521E21749D910000D925 /* Utills */,
+				AD111AD2217603410096CEBE /* Profile */,
+				AD111AD1217603340096CEBE /* ActivityFeed */,
+				AD111AD02176032B0096CEBE /* Photo */,
+				AD111ACF2176031F0096CEBE /* Discover */,
+				AD111ACE217603160096CEBE /* UserFeed */,
+				AD111ACD2176030F0096CEBE /* TabBar */,
+				AD111ACC217602DC0096CEBE /* LoginAndRegistration */,
+				ADFE521E21749D910000D925 /* Extensions */,
 				ADFE520721746F8A0000D925 /* AppDelegate.swift */,
-				ADFE520921746F8A0000D925 /* Registration.swift */,
 				ADFE520B21746F8A0000D925 /* Main.storyboard */,
 				ADFE520E21746F8C0000D925 /* Assets.xcassets */,
 				ADFE521021746F8C0000D925 /* LaunchScreen.storyboard */,
@@ -94,12 +174,12 @@
 			path = Instagram_Pro;
 			sourceTree = "<group>";
 		};
-		ADFE521E21749D910000D925 /* Utills */ = {
+		ADFE521E21749D910000D925 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				ADFE521F21749DA00000D925 /* Extensions.swift */,
 			);
-			path = Utills;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,15 +257,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Instagram_Pro-checkManifestLockResult.txt",
 			);
@@ -199,8 +275,6 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Instagram_Pro/Pods-Instagram_Pro-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
@@ -209,8 +283,6 @@
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
@@ -229,9 +301,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD111ADA217620D80096CEBE /* Login.swift in Sources */,
 				ADFE520A21746F8A0000D925 /* Registration.swift in Sources */,
+				AD111AD6217604860096CEBE /* Profile.swift in Sources */,
+				AD111AE221763A500096CEBE /* UserFeed.swift in Sources */,
+				AD111ADE21763A380096CEBE /* Photo.swift in Sources */,
+				AD111AD8217610AB0096CEBE /* ProfileHeader.swift in Sources */,
 				ADFE522021749DA00000D925 /* Extensions.swift in Sources */,
+				AD111AE021763A430096CEBE /* Discover.swift in Sources */,
 				ADFE520821746F8A0000D925 /* AppDelegate.swift in Sources */,
+				AD111ADC21763A2A0096CEBE /* ActivityFeed.swift in Sources */,
+				AD111AD4217603F00096CEBE /* TabBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
