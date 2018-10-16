@@ -20,18 +20,17 @@ class Registration: UIViewController {
         return reg
     }()
     
-//    let statusLabel: UILabel = {
-//        let reg = UILabel()
-//        reg.text = "Status"
-//        reg.textColor = .red
-//        reg.font = UIFont.systemFont(ofSize: 20)
-//        reg.translatesAutoresizingMaskIntoConstraints = false
-//
-//        reg.isHidden = true
-//        reg.isEnabled = false
-//
-//        return reg
-//    }()
+    let statusLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Status"
+        label.textColor = .black
+        label.backgroundColor = .yellow
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.isHidden = true
+        label.isEnabled = true
+        return label
+    }()
     
     let uploadProfilePicBtn: UIButton = {
         let button = UIButton(type: .system)
@@ -138,15 +137,17 @@ class Registration: UIViewController {
             if let err = error {
                 print ("Error while creating user", err)
                 
-//                self.statusLabel.isEnabled = true
-//                self.statusLabel.isHidden = false
-//
-//                self.statusLabel.text = err.localizedDescription.description
-//
+                self.statusLabel.isEnabled = true
+                self.statusLabel.isHidden = false
+
+                self.statusLabel.text = err.localizedDescription.description
+
                 
                 return
             } else {
-                
+                self.statusLabel.isEnabled = true
+                self.statusLabel.isHidden = false
+                self.statusLabel.text = "Registered Successfully!"
                 print(" User created - ", Auth.auth().currentUser?.uid ?? "")
             }
             
@@ -167,7 +168,7 @@ class Registration: UIViewController {
         
         setupSignupButton()
         
-//        setupStatusLabel()
+        setupStatusLabel()
         
     }
     
@@ -227,11 +228,11 @@ class Registration: UIViewController {
         
     }
     
-//    fileprivate func setupStatusLabel() {
-//        view.addSubview(statusLabel)
-//        statusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        statusLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 40).isActive = true
-//    }
+    fileprivate func setupStatusLabel() {
+        view.addSubview(statusLabel)
+        statusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        statusLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 12).isActive = true
+    }
     
     
 }
