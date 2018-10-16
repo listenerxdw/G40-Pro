@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class Registration: UIViewController {
     
@@ -19,6 +20,18 @@ class Registration: UIViewController {
         return reg
     }()
     
+//    let statusLabel: UILabel = {
+//        let reg = UILabel()
+//        reg.text = "Status"
+//        reg.textColor = .red
+//        reg.font = UIFont.systemFont(ofSize: 20)
+//        reg.translatesAutoresizingMaskIntoConstraints = false
+//
+//        reg.isHidden = true
+//        reg.isEnabled = false
+//
+//        return reg
+//    }()
     
     let uploadProfilePicBtn: UIButton = {
         let button = UIButton(type: .system)
@@ -43,6 +56,9 @@ class Registration: UIViewController {
         textfield.borderStyle = .roundedRect
         textfield.font = UIFont.systemFont(ofSize: 14)
         textfield.translatesAutoresizingMaskIntoConstraints = false
+        
+        textfield.addTarget(self, action: #selector(handleValidateFormInput), for: .editingChanged)
+        
         return textfield
     }()
     
@@ -53,6 +69,9 @@ class Registration: UIViewController {
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
+        
+        tf.addTarget(self, action: #selector(handleValidateFormInput), for: .editingChanged)
+        
         return tf
     }()
     
@@ -64,8 +83,12 @@ class Registration: UIViewController {
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
+        
+        tf.addTarget(self, action: #selector(handleValidateFormInput), for: .editingChanged)
         return tf
     }()
+    
+
     
     let signUpButton: UIButton = {
         let button = UIButton(type: .system)
@@ -75,10 +98,60 @@ class Registration: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.setTitleColor(.white, for: .normal)
+        
+        button.addTarget(self, action: #selector(signUpHandler), for: .touchUpInside)
+        
+        button.isEnabled = false
+        
+        
         return button
     }()
     
+    @objc func handleValidateFormInput(){
+        
+        let isInputFieldsContainText = (emailTextField.text?.isEmpty)! && (fullNameTextField.text?.isEmpty)! && (passwordTextField.text?.isEmpty)!
+        
+        if isInputFieldsContainText {
+            
+            print("Form invalid")
+            signUpButton.isEnabled = false
+            
+        }else {
+            
+            print("Valid Form")
+            
+            signUpButton.isEnabled = true
+        }
+        
+    }
     
+    @objc func signUpHandler(){
+        
+        guard let email = emailTextField.text, !email.isEmpty else {return}
+        guard let userName = fullNameTextField.text, !userName.isEmpty else {return}
+        guard let password = passwordTextField.text, !password.isEmpty else {return}
+        
+        
+        Auth.auth().createUser(withEmail: email, password: password, completion: {
+            (user, error) in
+            
+            if let err = error {
+                print ("Error while creating user", err)
+                
+//                self.statusLabel.isEnabled = true
+//                self.statusLabel.isHidden = false
+//
+//                self.statusLabel.text = err.localizedDescription.description
+//
+                
+                return
+            } else {
+                
+                print(" User created - ", Auth.auth().currentUser?.uid ?? "")
+            }
+            
+        })
+    }
     
     override func viewDidLoad() {
         
@@ -93,6 +166,8 @@ class Registration: UIViewController {
         setupInputFields()
         
         setupSignupButton()
+        
+//        setupStatusLabel()
         
     }
     
@@ -126,6 +201,8 @@ class Registration: UIViewController {
         clickLabel.topAnchor.constraint(equalTo: uploadProfilePicBtn.bottomAnchor, constant: -40).isActive = true
     }
     
+    
+    
     fileprivate func setupInputFields() {
         let stackView = UIStackView(arrangedSubviews: [emailTextField, fullNameTextField, passwordTextField])
         
@@ -139,6 +216,7 @@ class Registration: UIViewController {
         
     }
     
+    
     fileprivate func setupSignupButton() {
         view.addSubview(signUpButton)
         signUpButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -148,6 +226,12 @@ class Registration: UIViewController {
         
         
     }
+    
+//    fileprivate func setupStatusLabel() {
+//        view.addSubview(statusLabel)
+//        statusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        statusLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 40).isActive = true
+//    }
     
     
 }
