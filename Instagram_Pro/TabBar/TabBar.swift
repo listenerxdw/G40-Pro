@@ -9,11 +9,28 @@
 import UIKit
 import Firebase
 
-class TabBar: UITabBarController {
+class TabBar: UITabBarController,UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        
+        let index = viewControllers?.index(of: viewController)
+        if index == 2 {
+            
+            let layout = UICollectionViewFlowLayout()
+            let uploadPhoto = UploadPhotoController(collectionViewLayout: layout)
+            let navController = UINavigationController(rootViewController: uploadPhoto)
+            
+            present(navController, animated: true, completion: nil)
+            
+            return false
+        }
+        
+        return true
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.delegate = self
         
         if Auth.auth().currentUser == nil {
             //show if not logged in
@@ -36,7 +53,7 @@ class TabBar: UITabBarController {
         let DiscoverNavController = templateNavController(Image: #imageLiteral(resourceName: "discover"),rootViewController: Discover())
         
         //Photo
-        let PhotoNavController = templateNavController(Image: #imageLiteral(resourceName: "photo"),rootViewController: Photo())
+        let PhotoNavController = templateNavController(Image: #imageLiteral(resourceName: "photo"),rootViewController: UploadPhotoController())
         
         //ActivityFeed
         let ActivityFeedNavController = templateNavController(Image: #imageLiteral(resourceName: "activityfeed"),rootViewController: ActivityFeed())
@@ -67,12 +84,14 @@ class TabBar: UITabBarController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     fileprivate func templateNavController(Image: UIImage, rootViewController: UIViewController = UIViewController()) -> UINavigationController {
         let viewController = rootViewController
         let navController = UINavigationController(rootViewController: viewController)
         navController.tabBarItem.image = Image
         return navController
     }
+    
     
 
 

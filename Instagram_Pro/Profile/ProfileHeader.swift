@@ -13,14 +13,15 @@ class ProfileHeader: UICollectionViewCell {
     
     var user: User? {
         didSet {
-            setupProfileImage()
+            guard let profileImageUrl = user?.profileImageUrl else { return }
+            profileImageView.loadImage(urlString: profileImageUrl)
             
             usernameLabel.text = user?.username
         }
     }
     
-    let profileImageView: UIImageView = {
-        let iv = UIImageView()
+    let profileImageView: CustomImageView = {
+        let iv = CustomImageView()
         return iv
     }()
     
@@ -92,7 +93,6 @@ class ProfileHeader: UICollectionViewCell {
         profileImageView.layer.cornerRadius = 80 / 2
         profileImageView.clipsToBounds = true
         
-        //setupBottomToolbar()
         
         addSubview(usernameLabel)
         usernameLabel.anchor(top: profileImageView.bottomAnchor, left: leftAnchor,bottom: bottomAnchor,  right: rightAnchor, paddingTop: 4, paddingLeft: 12, paddingBottom: 0, paddingRight: 12, width: 0, height: 0)
@@ -115,7 +115,7 @@ class ProfileHeader: UICollectionViewCell {
         addSubview(stackView)
         stackView.anchor(top: topAnchor, left: profileImageView.rightAnchor, bottom: nil, right: rightAnchor, paddingTop: 12, paddingLeft: 12, paddingBottom: 0, paddingRight: 12, width: 0, height: 50)
     }
-    
+    /*
     fileprivate func setupProfileImage() {
         guard let profileImageUrl = user?.profileImageUrl else { return }
         
@@ -141,6 +141,7 @@ class ProfileHeader: UICollectionViewCell {
             
             }.resume()
     }
+ */
     
         
 
