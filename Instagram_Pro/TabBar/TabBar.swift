@@ -50,7 +50,8 @@ class TabBar: UITabBarController,UITabBarControllerDelegate {
         let UserFeedNavController = templateNavController(Image: #imageLiteral(resourceName: "userfeed"), rootViewController: UserFeed())
         
         //Discover
-        let DiscoverNavController = templateNavController(Image: #imageLiteral(resourceName: "discover"),rootViewController: Discover())
+        let DiscoverNavController = templateNavController(Image: #imageLiteral(resourceName: "discover"),rootViewController: Discover(collectionViewLayout: UICollectionViewFlowLayout()))
+        
         
         //Photo
         let PhotoNavController = templateNavController(Image: #imageLiteral(resourceName: "photo"),rootViewController: UploadPhotoController())

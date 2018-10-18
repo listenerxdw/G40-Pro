@@ -28,6 +28,9 @@
 		ADFE520F21746F8C0000D925 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADFE520E21746F8C0000D925 /* Assets.xcassets */; };
 		ADFE521221746F8C0000D925 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADFE521021746F8C0000D925 /* LaunchScreen.storyboard */; };
 		ADFE522021749DA00000D925 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFE521F21749DA00000D925 /* Extensions.swift */; };
+		DA6152EA21786E1500A31A9B /* DiscoverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6152E921786E1500A31A9B /* DiscoverCell.swift */; };
+		DA6152EC21786EAD00A31A9B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6152EB21786EAD00A31A9B /* User.swift */; };
+		DABA40002178746C0087B50A /* FirebaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABA3FFF2178746C0087B50A /* FirebaseUtils.swift */; };
 		FB98601279FA171D3F38079F /* Pods_Instagram_Pro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B27D16140823636881179BE7 /* Pods_Instagram_Pro.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +61,9 @@
 		ADFE521F21749DA00000D925 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B27D16140823636881179BE7 /* Pods_Instagram_Pro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Instagram_Pro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D78B5F69CF7DABA336D6C241 /* Pods-Instagram_Pro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram_Pro.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Instagram_Pro/Pods-Instagram_Pro.debug.xcconfig"; sourceTree = "<group>"; };
+		DA6152E921786E1500A31A9B /* DiscoverCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverCell.swift; sourceTree = "<group>"; };
+		DA6152EB21786EAD00A31A9B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		DABA3FFF2178746C0087B50A /* FirebaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				AD111ADF21763A430096CEBE /* Discover.swift */,
+				DA6152E921786E1500A31A9B /* DiscoverCell.swift */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -155,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				ADB13C252177605700526F7D /* Post.swift */,
+				DA6152EB21786EAD00A31A9B /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -204,6 +212,7 @@
 			children = (
 				ADFE521F21749DA00000D925 /* Extensions.swift */,
 				ADB13C27217775D400526F7D /* CustomImageView.swift */,
+				DABA3FFF2178746C0087B50A /* FirebaseUtils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -331,6 +340,7 @@
 				ADB13C1F217754A600526F7D /* UploadPhotoCell.swift in Sources */,
 				ADFE520A21746F8A0000D925 /* Registration.swift in Sources */,
 				AD111AD6217604860096CEBE /* Profile.swift in Sources */,
+				DA6152EA21786E1500A31A9B /* DiscoverCell.swift in Sources */,
 				AD111AE221763A500096CEBE /* UserFeed.swift in Sources */,
 				AD111ADE21763A380096CEBE /* UploadPhotoController.swift in Sources */,
 				ADB13C21217755BE00526F7D /* PostPhotoController.swift in Sources */,
@@ -342,8 +352,10 @@
 				ADB13C262177605700526F7D /* Post.swift in Sources */,
 				ADFE520821746F8A0000D925 /* AppDelegate.swift in Sources */,
 				AD111ADC21763A2A0096CEBE /* ActivityFeed.swift in Sources */,
+				DABA40002178746C0087B50A /* FirebaseUtils.swift in Sources */,
 				ADB13C1D2177540300526F7D /* UploadPhotoHeader.swift in Sources */,
 				AD111AD4217603F00096CEBE /* TabBar.swift in Sources */,
+				DA6152EC21786EAD00A31A9B /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
