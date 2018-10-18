@@ -6,49 +6,99 @@
 	<dict>
 		<key>FirebaseAuth.xcscheme</key>
 		<dict>
+<<<<<<< HEAD
+=======
+			<key>isShown</key>
+			<false/>
+>>>>>>> yuri
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
 		<key>FirebaseCore.xcscheme</key>
 		<dict>
+<<<<<<< HEAD
+=======
+			<key>isShown</key>
+			<false/>
+>>>>>>> yuri
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
 		<key>FirebaseDatabase.xcscheme</key>
 		<dict>
+<<<<<<< HEAD
+=======
+			<key>isShown</key>
+			<false/>
+>>>>>>> yuri
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
 		<key>FirebaseStorage.xcscheme</key>
 		<dict>
+<<<<<<< HEAD
+=======
+			<key>isShown</key>
+			<false/>
+>>>>>>> yuri
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
 		<dict>
+<<<<<<< HEAD
+=======
+			<key>isShown</key>
+			<false/>
+>>>>>>> yuri
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
 		<key>GoogleUtilities.xcscheme</key>
 		<dict>
+<<<<<<< HEAD
+=======
+			<key>isShown</key>
+			<false/>
+>>>>>>> yuri
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
 		<key>Pods-Instagram_Pro.xcscheme</key>
 		<dict>
+<<<<<<< HEAD
+=======
+			<key>isShown</key>
+			<false/>
+>>>>>>> yuri
 			<key>orderHint</key>
 			<integer>8</integer>
 		</dict>
 		<key>leveldb-library.xcscheme</key>
 		<dict>
+<<<<<<< HEAD
+=======
+			<key>isShown</key>
+			<false/>
+>>>>>>> yuri
 			<key>orderHint</key>
 			<integer>6</integer>
 		</dict>
 		<key>nanopb.xcscheme</key>
 		<dict>
+<<<<<<< HEAD
+=======
+			<key>isShown</key>
+			<false/>
+>>>>>>> yuri
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
 	</dict>
+<<<<<<< HEAD
+=======
+	<key>SuppressBuildableAutocreation</key>
+	<dict/>
+>>>>>>> yuri
 </dict>
 </plist>
