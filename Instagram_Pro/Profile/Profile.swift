@@ -42,8 +42,12 @@ class Profile: UICollectionViewController,UICollectionViewDelegateFlowLayout {
         ref.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
             guard let dictionary = snapshot.value as? [String: Any] else { return }
             
+            guard let user = self.user else { return }
+            
             let post = Post(dictionary: dictionary)
-            self.posts.append(post)
+            
+            self.posts.insert(post, at: 0)
+            //            self.posts.append(post)
             
             self.collectionView?.reloadData()
             
@@ -53,7 +57,7 @@ class Profile: UICollectionViewController,UICollectionViewDelegateFlowLayout {
     }
     
     
-    fileprivate func fetchPosts(){
+    /*fileprivate func fetchPosts(){
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         let ref = Database.database().reference().child("posts").child(uid)
@@ -76,7 +80,7 @@ class Profile: UICollectionViewController,UICollectionViewDelegateFlowLayout {
         }) { (err) in
             print("Failed to fetch posts:", err)
         }
-    }
+    }*/
     
     
     fileprivate func setupLogOutButton() {
@@ -90,7 +94,12 @@ class Profile: UICollectionViewController,UICollectionViewDelegateFlowLayout {
             
             do {
                 try Auth.auth().signOut()
-                self.present(UINavigationController(rootViewController: Login()), animated: true, completion: nil)
+                
+                /*self.present(UINavigationController(rootViewController: Login()), animated: true, completion: nil)*/
+                let loginController = Login()
+                let navController = UINavigationController(rootViewController: loginController)
+                self.present(navController, animated: true, completion: nil)
+                
             } catch let signOutErr {
                 print("Failed to sign out:", signOutErr)
             }
@@ -109,7 +118,6 @@ class Profile: UICollectionViewController,UICollectionViewDelegateFlowLayout {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ProfilePostCell
         
         cell.post = posts[indexPath.item]
@@ -148,8 +156,11 @@ class Profile: UICollectionViewController,UICollectionViewDelegateFlowLayout {
     var user: User?
     fileprivate func fetchUser() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+        Database.fetchUserWithUID(uid: uid) { (user) in
+            self.user = user
+            self.navigationItem.title = self.user?.username
+            
+            self.collectionView?.reloadData()       /* Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
             print(snapshot.value ?? "")
             
             guard let dictionary = snapshot.value as? [String: Any] else { return }
@@ -160,18 +171,9 @@ class Profile: UICollectionViewController,UICollectionViewDelegateFlowLayout {
             self.collectionView?.reloadData()
             
         }) { (err) in
-            print("Failed to fetch user:", err)
+            print("Failed to fetch user:", err)*/
         }
     }
 }
     
-struct User {
-    let username: String
-    let profileImageUrl: String
-    
-    init(dictionary: [String: Any]) {
-        self.username = dictionary["username"] as? String ?? ""
-        self.profileImageUrl = dictionary["profileImageUrl"]  as?String ?? ""
-        }
-    }
 
