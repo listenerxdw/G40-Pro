@@ -14,13 +14,42 @@ class TabBar: UITabBarController,UITabBarControllerDelegate {
         
         let index = viewControllers?.index(of: viewController)
         if index == 2 {
-            
+            /*
             let layout = UICollectionViewFlowLayout()
             let uploadPhoto = UploadPhotoController(collectionViewLayout: layout)
             let navController = UINavigationController(rootViewController: uploadPhoto)
             
             present(navController, animated: true, completion: nil)
             
+            return false
+            */
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            
+            alertController.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (_) in
+                
+                print("Showing camera")
+                
+                let cameraController = Camera()
+                self.present(cameraController, animated: true, completion: nil)
+            }))
+            
+            alertController.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (_) in
+                let layout = UICollectionViewFlowLayout()
+                let uploadPhoto = UploadPhotoController(collectionViewLayout: layout)
+                let navController = UINavigationController(rootViewController: uploadPhoto)
+                
+                self.present(navController, animated: true, completion: nil)
+            }))
+            
+            
+            
+            
+            
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+            self.present(alertController, animated: true, completion: nil)
+                
+                
             return false
         }
         
