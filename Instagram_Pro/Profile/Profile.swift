@@ -9,42 +9,42 @@
 import UIKit
 import Firebase
 
-class Profile: UICollectionViewController,UICollectionViewDelegateFlowLayout {
+class Profile: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let cellId = "cellId"
-
+    
+    var userId: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         collectionView?.backgroundColor = .white
-        
-        navigationItem.title = Auth.auth().currentUser?.uid
-        
-        fetchUser()
-        
         collectionView?.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerId")
-        
         collectionView?.register(ProfilePostCell.self, forCellWithReuseIdentifier: cellId)
-       
+        
         setupLogOutButton()
         
-        //fetchPosts()
-
-        fetchOrderedPosts()
+        fetchUser()
+        //fetchOrderedPosts()
     }
     
     var posts = [Post]()
     
     fileprivate func fetchOrderedPosts() {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let uid = self.user?.uid else { return }
         let ref = Database.database().reference().child("posts").child(uid)
         
         //perhaps later on we'll implement some pagination of data
         ref.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
             guard let dictionary = snapshot.value as? [String: Any] else { return }
             
-            guard let user = self.user else { return }
+           // guard let user = self.user else { return }
             
+<<<<<<< HEAD
             let post = Post(user: user, dictionary: dictionary)
+=======
+            let post = Post( dictionary: dictionary)
+>>>>>>> yuri
             
             self.posts.insert(post, at: 0)
             //            self.posts.append(post)
@@ -56,38 +56,11 @@ class Profile: UICollectionViewController,UICollectionViewDelegateFlowLayout {
         }
     }
     
-    
-    /*fileprivate func fetchPosts(){
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        let ref = Database.database().reference().child("posts").child(uid)
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            //print(snapshot.value)
-            
-            guard let dictionaries = snapshot.value as? [String: Any] else { return }
-            
-            dictionaries.forEach({ (key, value) in
-                //print("Key \(key), Value: \(value)")
-                
-                guard let dictionary = value as? [String: Any] else { return }
-                
-                let post = Post(dictionary: dictionary)
-                self.posts.append(post)
-            })
-            
-            self.collectionView?.reloadData()
-            
-        }) { (err) in
-            print("Failed to fetch posts:", err)
-        }
-    }*/
-    
-    
     fileprivate func setupLogOutButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleSignOut))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleLogOut))
     }
     
-    @objc func handleSignOut() {
+    @objc func handleLogOut() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
@@ -95,7 +68,7 @@ class Profile: UICollectionViewController,UICollectionViewDelegateFlowLayout {
             do {
                 try Auth.auth().signOut()
                 
-                /*self.present(UINavigationController(rootViewController: Login()), animated: true, completion: nil)*/
+                //what happens? we need to present some kind of login controller
                 let loginController = Login()
                 let navController = UINavigationController(rootViewController: loginController)
                 self.present(navController, animated: true, completion: nil)
@@ -112,12 +85,12 @@ class Profile: UICollectionViewController,UICollectionViewDelegateFlowLayout {
         present(alertController, animated: true, completion: nil)
     }
     
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return posts.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ProfilePostCell
         
         cell.post = posts[indexPath.item]
@@ -143,6 +116,8 @@ class Profile: UICollectionViewController,UICollectionViewDelegateFlowLayout {
         
         header.user = self.user
         
+        //not correct
+        //header.addSubview(UIImageView())
         
         return header
     }
@@ -151,29 +126,20 @@ class Profile: UICollectionViewController,UICollectionViewDelegateFlowLayout {
         return CGSize(width: view.frame.width, height: 200)
     }
     
-    
-
     var user: User?
     fileprivate func fetchUser() {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        let uid = userId ?? (Auth.auth().currentUser?.uid ?? "")
+        
+        //guard let uid = Auth.auth().currentUser?.uid else { return }
+        
         Database.fetchUserWithUID(uid: uid) { (user) in
             self.user = user
             self.navigationItem.title = self.user?.username
             
-            self.collectionView?.reloadData()       /* Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-            print(snapshot.value ?? "")
-            
-            guard let dictionary = snapshot.value as? [String: Any] else { return }
-            
-            self.user = User(dictionary: dictionary)
-            self.navigationItem.title = self.user?.username
-            
             self.collectionView?.reloadData()
             
-        }) { (err) in
-            print("Failed to fetch user:", err)*/
+            self.fetchOrderedPosts()
         }
     }
 }
-    
-
