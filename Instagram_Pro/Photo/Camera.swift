@@ -44,6 +44,40 @@ class Camera: UIViewController, AVCapturePhotoCaptureDelegate {
         output.capturePhoto(with: settings, delegate: self)
         #endif
     }
+    
+    let flashlightButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "flashlight"), for: .normal)
+        button.addTarget(self, action: #selector(handleFlashlight), for: .touchUpInside)
+        button.tintColor = .white
+        return button
+    }()
+    
+    @objc func handleFlashlight(){
+        toggleFlash()
+    }
+    
+    func toggleFlash() {
+        let device = AVCaptureDevice.default(for: AVMediaType.video)
+        if (device?.hasTorch)! {
+            do {
+                try device?.lockForConfiguration()
+                if (device?.torchMode == AVCaptureDevice.TorchMode.on) {
+                    device?.torchMode = AVCaptureDevice.TorchMode.off
+                } else {
+                    do {
+                        try device?.setTorchModeOn(level: 1.0)
+                    } catch {
+                        print(error)
+                    }
+                }
+                device?.unlockForConfiguration()
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,14 +90,48 @@ class Camera: UIViewController, AVCapturePhotoCaptureDelegate {
         return true
     }
     
+   
+    
     fileprivate func setupHUD() {
         view.addSubview(capturePhotoButton)
         capturePhotoButton.anchor(top: nil, left: nil, bottom: view.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: -30, paddingRight: 0, width: 80, height: 80)
         capturePhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(dismissButton)
-        dismissButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 12, paddingLeft: 0, paddingBottom: 0, paddingRight: 12, width: 50, height: 50)
+        dismissButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 12, paddingLeft: 12, paddingBottom: 0, paddingRight: 0, width: 50, height: 50)
+        
+        view.addSubview(flashlightButton)
+        flashlightButton.anchor(top: view.topAnchor, left: nil, bottom: nil, right: view.rightAnchor, paddingTop: 23, paddingLeft: 0, paddingBottom: 0, paddingRight: 18, width: 25, height: 25)
+        
+        
+        drawGridView()
+        
+        
     }
+    
+    fileprivate func drawGridView() {
+        drawDottedLine(start: CGPoint(x: view.bounds.minX, y: view.bounds.maxY/3), end: CGPoint(x: view.bounds.maxX, y: view.bounds.maxY/3), view: view)
+        
+        drawDottedLine(start: CGPoint(x: view.bounds.minX, y: view.bounds.maxY/3*2), end: CGPoint(x: view.bounds.maxX, y: view.bounds.maxY/3*2), view: view)
+        
+        drawDottedLine(start: CGPoint(x: view.bounds.maxX/3, y: view.bounds.minY), end: CGPoint(x: view.bounds.maxX/3, y: view.bounds.maxY), view: view)
+        
+        drawDottedLine(start: CGPoint(x: view.bounds.maxX/3*2, y: view.bounds.minY), end: CGPoint(x: view.bounds.maxX/3*2, y: view.bounds.maxY), view: view)
+    }
+    
+    func drawDottedLine(start p0: CGPoint, end p1: CGPoint, view: UIView) {
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.strokeColor = UIColor.lightGray.cgColor
+        shapeLayer.lineWidth = 1
+        shapeLayer.lineDashPattern = [7, 3] // 7 is the length of dash, 3 is length of the gap.
+        
+        let path = CGMutablePath()
+        path.addLines(between: [p0, p1])
+        shapeLayer.path = path
+        view.layer.addSublayer(shapeLayer)
+    }
+    
+    
     
     
     func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {

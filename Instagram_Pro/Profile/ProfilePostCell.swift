@@ -9,7 +9,7 @@
 import UIKit
 
 class ProfilePostCell: UICollectionViewCell {
-
+    
     var post: Post? {
         didSet {
             guard let imageUrl = post?.imageUrl else { return }
@@ -36,5 +36,5 @@ class ProfilePostCell: UICollectionViewCell {
     }
     
     
-
+    
 }

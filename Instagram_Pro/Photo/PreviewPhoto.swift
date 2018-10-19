@@ -94,6 +94,34 @@ class PreviewPhoto: UIView {
         }
         
     }
+    /*
+    let filter1Button: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Filter:SepiaTone", for: .normal)
+        button.addTarget(self, action: #selector(handleFilter1), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func handleFilter1(){
+        let inputImage = previewImageView.image
+        let context = CIContext(options: nil)
+        if let currentFilter = CIFilter(name: "CISepiaTone"){
+            let beginImage = CIImage(image: inputImage!)
+            currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
+            currentFilter.setValue(0.5, forKey: kCIInputIntensityKey)
+            if let output = currentFilter.outputImage {
+                if let cgimg = context.createCGImage(output, from: output.extent) {
+                    let processedImage = UIImage(cgImage: cgimg)
+                    previewImageView.image = processedImage
+                }
+        }
+        }
+ */
+    
+    
+    
+    
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -107,7 +135,13 @@ class PreviewPhoto: UIView {
         
         addSubview(saveButton)
         saveButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 12, paddingLeft: 0, paddingBottom: 0, paddingRight: 12, width: 50, height: 50)
+        /*
+        addSubview(filter1Button)
+        filter1Button.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 12, paddingBottom: 12, paddingRight: 0, width: 50, height: 50)
+        */
+        
     }
+ 
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

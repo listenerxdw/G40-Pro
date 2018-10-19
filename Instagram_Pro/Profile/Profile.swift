@@ -38,13 +38,9 @@ class Profile: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         ref.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
             guard let dictionary = snapshot.value as? [String: Any] else { return }
             
-           // guard let user = self.user else { return }
+             guard let user = self.user else { return }
             
-<<<<<<< HEAD
-            let post = Post(user: user, dictionary: dictionary)
-=======
-            let post = Post( dictionary: dictionary)
->>>>>>> yuri
+            let post = Post( user: user, dictionary: dictionary)
             
             self.posts.insert(post, at: 0)
             //            self.posts.append(post)
