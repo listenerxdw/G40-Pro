@@ -47,7 +47,12 @@ class TabBar: UITabBarController,UITabBarControllerDelegate {
         
     func setupViewControllers() {
         //UserFeed
-        let UserFeedNavController = templateNavController(Image: #imageLiteral(resourceName: "userfeed"), rootViewController: UserFeed())
+        //let UserFeedNavController = templateNavController(Image: #imageLiteral(resourceName: "userfeed"), rootViewController: UserFeed())
+        
+        let userFeedlayout = UICollectionViewFlowLayout()
+        let userFeedController = UserFeed(collectionViewLayout: userFeedlayout)
+        let userFeedNavController = UINavigationController(rootViewController: userFeedController)
+        userFeedController.tabBarItem.image = #imageLiteral(resourceName: "userfeed")
         
         //Discover
         let DiscoverNavController = templateNavController(Image: #imageLiteral(resourceName: "discover"),rootViewController: Discover(collectionViewLayout: UICollectionViewFlowLayout()))
@@ -67,7 +72,7 @@ class TabBar: UITabBarController,UITabBarControllerDelegate {
     
         tabBar.tintColor = .black
         
-        viewControllers = [UserFeedNavController,
+        viewControllers = [userFeedNavController,
                            DiscoverNavController,
                            PhotoNavController,
                            ActivityFeedNavController,
