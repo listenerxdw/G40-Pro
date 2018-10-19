@@ -21,7 +21,7 @@ class UserFeedPostCell: UICollectionViewCell {
         didSet {
             guard let postImageUrl = post?.imageUrl else { return }
             
-            likeButton.setImage(post?.hasLiked == true ? #imageLiteral(resourceName: "plus").withRenderingMode(.alwaysOriginal) : #imageLiteral(resourceName: "shiba").withRenderingMode(.alwaysOriginal), for: .normal)
+            likeButton.setImage(post?.hasLiked == true ? #imageLiteral(resourceName: "like_selected").withRenderingMode(.alwaysOriginal) : #imageLiteral(resourceName: "like_unselected").withRenderingMode(.alwaysOriginal), for: .normal)
             
             photoImageView.loadImage(urlString: postImageUrl)
             
@@ -90,7 +90,7 @@ class UserFeedPostCell: UICollectionViewCell {
     
     lazy var likeButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "shiba").withRenderingMode(.automatic), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "like_unselected").withRenderingMode(.automatic), for: .normal)
         button.addTarget(self, action: #selector(handleLike), for: .touchUpInside)
         return button
     }()
@@ -102,7 +102,7 @@ class UserFeedPostCell: UICollectionViewCell {
     
     lazy var commentButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "logo").withRenderingMode(.automatic), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "comment").withRenderingMode(.automatic), for: .normal)
         button.addTarget(self, action: #selector(handleComment), for: .touchUpInside)
         return button
     }()
@@ -116,13 +116,13 @@ class UserFeedPostCell: UICollectionViewCell {
     
     let sendMessageButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "Icon-76x76").withRenderingMode(.automatic), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "send2").withRenderingMode(.automatic), for: .normal)
         return button
     }()
     
     let bookmarkButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "user").withRenderingMode(.automatic), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "ribbon").withRenderingMode(.automatic), for: .normal)
         return button
     }()
     
