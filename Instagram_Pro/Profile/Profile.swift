@@ -44,7 +44,7 @@ class Profile: UICollectionViewController,UICollectionViewDelegateFlowLayout {
             
             guard let user = self.user else { return }
             
-            let post = Post(dictionary: dictionary)
+            let post = Post(user: user, dictionary: dictionary)
             
             self.posts.insert(post, at: 0)
             //            self.posts.append(post)
