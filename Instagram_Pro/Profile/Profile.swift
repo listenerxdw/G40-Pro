@@ -22,18 +22,37 @@ class Profile: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         collectionView?.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerId")
         collectionView?.register(ProfilePostCell.self, forCellWithReuseIdentifier: cellId)
         
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        collectionView?.refreshControl = refreshControl
+        
         setupLogOutButton()
         
         fetchUser()
-        //fetchOrderedPosts()
+        
+        fetchFollowersNumber()
+        
+        fetchFollowingsNumber()
+        
     }
     
+    //let refreshControl = UIRefreshControl()
+    
+    @objc func handleRefresh() {
+        print("Handling refresh..")
+        self.posts.removeAll()
+        self.collectionView?.reloadData()
+        self.refreshControl.endRefreshing()
+        fetchUser()
+
+    }
+    let refreshControl = UIRefreshControl()
     var posts = [Post]()
     
     fileprivate func fetchOrderedPosts() {
         guard let uid = self.user?.uid else { return }
         let ref = Database.database().reference().child("posts").child(uid)
-        
+        self.collectionView?.refreshControl?.endRefreshing()
         //perhaps later on we'll implement some pagination of data
         ref.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
             guard let dictionary = snapshot.value as? [String: Any] else { return }
@@ -52,8 +71,44 @@ class Profile: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         }
     }
     
-    fileprivate func setupLogOutButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleLogOut))
+    
+    var followers : Int = 0
+    var followings : Int = 0
+    //Need to be fixed.
+    
+    fileprivate func fetchFollowingsNumber()  {
+        print("fetching followings number")
+        
+        let uid = userId ?? (Auth.auth().currentUser?.uid ?? "")
+        print(uid)
+        let ref = Database.database().reference().child("following").child(uid)
+        //self.collectionView?.refreshControl?.endRefreshing()
+        ref.observe(.value, with: { (snapshot: DataSnapshot!) in
+            print(snapshot.childrenCount)
+            
+            self.followings = Int(snapshot.childrenCount)
+            //self.collectionView?.reloadData()
+            
+        })
+    }
+ 
+    fileprivate func fetchFollowersNumber()  {
+        print("fetching followers numbers")
+        let uid = userId ?? (Auth.auth().currentUser?.uid ?? "")
+        print(uid)
+        //self.collectionView?.refreshControl?.endRefreshing()
+        let ref = Database.database().reference().child("follower").child(uid)
+        ref.observe(.value, with: { (snapshot: DataSnapshot!) in
+            print(snapshot.childrenCount)
+            self.followers = Int(snapshot.childrenCount)
+        })
+        //self.collectionView?.refreshControl?.endRefreshing()
+        }
+    
+    func setupLogOutButton() {
+        
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleLogOut))
+        
     }
     
     @objc func handleLogOut() {
@@ -64,7 +119,6 @@ class Profile: UICollectionViewController, UICollectionViewDelegateFlowLayout {
             do {
                 try Auth.auth().signOut()
                 
-                //what happens? we need to present some kind of login controller
                 let loginController = Login()
                 let navController = UINavigationController(rootViewController: loginController)
                 self.present(navController, animated: true, completion: nil)
@@ -112,9 +166,29 @@ class Profile: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         
         header.user = self.user
         
-        //not correct
-        //header.addSubview(UIImageView())
+        //set header data.
+        //posts
+        let postsCount = String (posts.count)
+        let postsAttributedText = NSMutableAttributedString(string: postsCount+"\n", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)])
         
+        postsAttributedText.append(NSAttributedString(string: "posts", attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)]))
+        
+        header.postsLabel.attributedText = postsAttributedText
+        
+        //followers
+        
+        let followersCount = String (self.followers)
+        let followersAttributedText = NSMutableAttributedString(string: followersCount+"\n", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)])
+        
+        followersAttributedText.append(NSAttributedString(string: "followers", attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)]))
+        header.followersLabel.attributedText = followersAttributedText
+        
+        //followings
+        let followingsCount = String (self.followings)
+        let followingsAttributedText = NSMutableAttributedString(string: followingsCount+"\n", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)])
+        
+        followingsAttributedText.append(NSAttributedString(string: "followings", attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)]))
+        header.followingLabel.attributedText = followingsAttributedText
         return header
     }
     

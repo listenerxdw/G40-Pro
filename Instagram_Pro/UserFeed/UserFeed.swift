@@ -32,9 +32,9 @@ class UserFeed: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         fetchAllPosts()
     }
     
-    @objc func handleUpdateFeed() {
-        handleRefresh()
-    }
+   //@objc func handleUpdateFeed() {
+   //     handleRefresh()
+    //}
     
     @objc func handleRefresh() {
         print("Handling refresh..")
@@ -86,6 +86,7 @@ class UserFeed: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
     fileprivate func fetchPostsWithUser(user: User) {
         let ref = Database.database().reference().child("posts").child(user.uid)
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            
             
             self.collectionView?.refreshControl?.endRefreshing()
             

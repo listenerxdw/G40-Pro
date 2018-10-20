@@ -72,8 +72,14 @@ class Discover:  UICollectionViewController, UICollectionViewDelegateFlowLayout,
         
         let userProfileController = Profile(collectionViewLayout: UICollectionViewFlowLayout())
         userProfileController.userId = user.uid
+        
+        
+        //userProfileController.navigationItem.rightBarButtonItem?.isEnabled = false
         navigationController?.pushViewController(userProfileController, animated: true)
+    
     }
+    
+
     
     var filteredUsers = [User]()
     var users = [User]()
@@ -127,19 +133,6 @@ class Discover:  UICollectionViewController, UICollectionViewDelegateFlowLayout,
         return CGSize(width: view.frame.width, height: 66)
     }
 }
-
-
-/*
- // MARK: - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
- // Get the new view controller using segue.destinationViewController.
- // Pass the selected object to the new view controller.
- }
- */
-
-
 
 
 
