@@ -170,11 +170,25 @@ class UserFeed: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         
         alertController.addAction(UIAlertAction(title: "Sort By Location", style: .destructive, handler: { (_) in
             
-            let alert = UIAlertController(title: "messageTitle", message: "No Location Data available", preferredStyle: .alert)
-            
-//            alert.show(self, sender: alertController)
+            let alert = UIAlertController(title: nil, message: "Location Data empty", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                switch action.style{
+                case .default:
+                    print("default")
+                    
+                case .cancel:
+                    print("cancel")
+                    
+                case .destructive:
+                    print("destructive")
+                    
+                    
+                }}))
+            self.present(alert, animated: true, completion: nil)
             
         }))
+        
+    
         
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
