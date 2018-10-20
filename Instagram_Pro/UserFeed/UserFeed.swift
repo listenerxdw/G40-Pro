@@ -13,6 +13,7 @@ class UserFeed: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
     
     
     let cellId = "cellId"
+    var sortOrder = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +76,7 @@ class UserFeed: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
     let refreshControl = UIRefreshControl()
     
     var posts = [Post]()
+    
     fileprivate func fetchPosts() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
@@ -82,6 +84,8 @@ class UserFeed: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
             self.fetchPostsWithUser(user: user)
         }
     }
+    
+    
     
     fileprivate func fetchPostsWithUser(user: User) {
         let ref = Database.database().reference().child("posts").child(user.uid)
@@ -109,9 +113,17 @@ class UserFeed: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
                     }
                     
                     self.posts.append(post)
+                    
+                    if(self.sortOrder){
                     self.posts.sort(by: { (p1, p2) -> Bool in
                         return p1.creationDate.compare(p2.creationDate) == .orderedDescending
                     })
+                    } else {
+                    self.posts.sort(by: { (p1, p2) -> Bool in
+                        return p1.creationDate.compare(p2.creationDate) == .orderedAscending
+                    })
+                    }
+                    
                     self.collectionView?.reloadData()
                     
                 }, withCancel: { (err) in
@@ -126,10 +138,49 @@ class UserFeed: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
     
     func setupNavigationItems() {
         //navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "logo"))
-        navigationItem.title = "Instagram_Pro"
+        navigationItem.title = "Instagram_G40"
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(gearButtonPressed))
+        //        navigationItem.rightBarButtonItem?.image = #imageLiteral(resourceName: "gear")
+        navigationItem.rightBarButtonItem?.isEnabled = true
         
     }
     
+    @objc func gearButtonPressed(){
+        
+        print("Gear Button Pressed")
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        alertController.addAction(UIAlertAction(title: "Sort by Old First", style: .destructive, handler: { (_) in
+                    self.sortOrder = false
+                    self.posts.removeAll()
+                    self.fetchAllPosts()
+            
+            
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Sort by New First", style: .destructive, handler: { (_) in
+            self.sortOrder = true
+               self.posts.removeAll()
+            self.fetchAllPosts()
+            
+            
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Sort By Location", style: .destructive, handler: { (_) in
+            
+            let alert = UIAlertController(title: "messageTitle", message: "No Location Data available", preferredStyle: .alert)
+            
+//            alert.show(self, sender: alertController)
+            
+        }))
+        
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(alertController, animated: true, completion: nil)
+    }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
