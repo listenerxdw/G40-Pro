@@ -7,29 +7,67 @@
 //
 
 import UIKit
-
-class ActivityFeed: UIViewController {
-
-    override func viewDidLoad() {
+import Firebase
+class ActivityFeed: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    let cellId = "cellId"
+    override func viewDidLoad(){
         super.viewDidLoad()
-        self.view.backgroundColor = .red
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        collectionView?.backgroundColor = .white
+        
+        collectionView?.register(ActivityCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView?.alwaysBounceVertical = true
+        
+        
+        fetchActivity()
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    var follows = [Follow]()
+    
+    private func fetchActivity(){
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let ref = Database.database().reference().child("follower").child(uid)
+            ref.observe(.childAdded, with: { (snapshot) in
+                //print(snapshot)
+                //guard let dictionary = [snapshot.key:snapshot.value] as? [String:Any] else{return}
+                let keys = snapshot.key
+                print(keys)
+                
+                Database.fetchUserWithUID(uid: keys, completion: { (user) in
+                    var follow = Follow(user: user)
+                    //follow = Follow(user: user)
+                    self.follows.append(follow)
+                    self.collectionView?.reloadData()
+                })
+                //print(snapshot)
+//            dictionary.forEach({ (key, value) in
+//                Database.fetchUserWithUID(uid: key, completion: { (user) in
+//
+//                })
+//            })
+            
+            //self.collectionView?.reloadData()
+        }) { (err) in
+            print(err)
+        }
+        
+    
     }
-    */
+
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return follows.count
+    }
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ActivityCell
+        cell.backgroundColor = .white
+        cell.follow = follows[indexPath.item]
+        
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height:  60)
+    }
 
 }
