@@ -8,8 +8,9 @@
 
 import UIKit
 import Photos
+import CropViewController
 
-class UploadPhotoController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class UploadPhotoController: UICollectionViewController, UICollectionViewDelegateFlowLayout,CropViewControllerDelegate {
     
     let cellId = "cellId"
     let headerId = "headerId"
@@ -158,9 +159,23 @@ class UploadPhotoController: UICollectionViewController, UICollectionViewDelegat
     }
     
     @objc func handleNext() {
-        let postPhotoController = PostPhotoController()
-        postPhotoController.selectedImage = header?.photoImageView.image
-        navigationController?.pushViewController(postPhotoController, animated: true)
+        let cropViewController = CropViewController(image: (header?.photoImageView.image)!)
+        cropViewController.delegate = self
+        present(cropViewController, animated: true, completion: nil)
+        //let postPhotoController = PostPhotoController()
+        //postPhotoController.selectedImage = header?.photoImageView.image
+        //navigationController?.pushViewController(postPhotoController, animated: true)
+    }
+    
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        // 'image' is the newly cropped version of the original image
+        //let postPhotoController = PostPhotoController()
+        //postPhotoController.selectedImage = image
+        //navigationController?.pushViewController(postPhotoController, animated: true)
+        let filter = Filter()
+        filter.image = image
+        navigationController?.pushViewController(filter, animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func handleCancel() {

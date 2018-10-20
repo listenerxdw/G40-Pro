@@ -8,8 +8,11 @@
 
 import UIKit
 import Firebase
+import Photos
 
 class TabBar: UITabBarController,UITabBarControllerDelegate {
+    
+    
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         
         let index = viewControllers?.index(of: viewController)
@@ -37,12 +40,8 @@ class TabBar: UITabBarController,UITabBarControllerDelegate {
                 let layout = UICollectionViewFlowLayout()
                 let uploadPhoto = UploadPhotoController(collectionViewLayout: layout)
                 let navController = UINavigationController(rootViewController: uploadPhoto)
-                
                 self.present(navController, animated: true, completion: nil)
             }))
-            
-            
-            
             
             
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -55,7 +54,68 @@ class TabBar: UITabBarController,UITabBarControllerDelegate {
         
         return true
     }
+    
+    //@objc fileprivate func uploadPhotohandler() {
+        //let layout = UICollectionViewFlowLayout()
+        //let uploadPhoto = UploadPhotoController(collectionViewLayout: layout)
+        //let navController = UINavigationController(rootViewController: uploadPhoto)
+        
+        //self.present(navController, animated: true, completion: nil)
+        //let imagePickerController = UIImagePickerController()
+        //imagePickerController.delegate = self
+        //imagePickerController.allowsEditing = true
+        
+        //self.present(imagePickerController, animated: true, completion: nil)
+    //}
+    /*
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        dismiss(animated: true){
+        self.checkPermission()
+        let postPhotoController = PostPhotoController()
+        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+            postPhotoController.selectedImage = editedImage.withRenderingMode(.alwaysOriginal)
+            self.present(postPhotoController, animated: true, completion: nil)
+            
+        } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            postPhotoController.selectedImage = originalImage.withRenderingMode(.alwaysOriginal)
+            self.present(postPhotoController, animated: true, completion: nil)
+        }
+        }
+        //navigationController?.pushViewController(postPhotoController, animated: true)
+        //self.present(postPhotoController, animated: true, completion: nil)
+    }
 
+    
+    func checkPermission() {
+        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAuthorizationStatus {
+        case .authorized:
+            print("Access is granted by user")
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({
+                (newStatus) in
+                print("status is \(newStatus)")
+                if newStatus ==  PHAuthorizationStatus.authorized {
+                    /* do stuff here */
+                    print("success")
+                }
+            })
+            print("It is not determined until now")
+        case .restricted:
+            // same same
+            print("User do not have access to photo album.")
+        case .denied:
+            // same same
+            print("User has denied the permission.")
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+        
+    }
+     */
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         

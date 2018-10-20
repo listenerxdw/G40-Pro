@@ -264,6 +264,11 @@ class Registration: UIViewController,UIImagePickerControllerDelegate, UINavigati
         _ = navigationController?.popViewController(animated: true)
     }
     
+    fileprivate func setupAlreadyHavAccountButton() {
+        view.addSubview(alreadyHaveAccountButton)
+        alreadyHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -282,8 +287,7 @@ class Registration: UIViewController,UIImagePickerControllerDelegate, UINavigati
         
         setupStatusLabel()
         
-        view.addSubview(alreadyHaveAccountButton)
-        alreadyHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
+        setupAlreadyHavAccountButton()
         
     }
     

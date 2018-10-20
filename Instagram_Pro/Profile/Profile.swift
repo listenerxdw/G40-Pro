@@ -10,9 +10,8 @@ import UIKit
 import Firebase
 
 class Profile: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
     let cellId = "cellId"
-    
+   //collectionView?.keyboardDismissMode = .onDrag
     var userId: String?
     
     override func viewDidLoad() {
@@ -82,7 +81,7 @@ class Profile: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         let uid = userId ?? (Auth.auth().currentUser?.uid ?? "")
         print(uid)
         let ref = Database.database().reference().child("following").child(uid)
-        //self.collectionView?.refreshControl?.endRefreshing()
+
         ref.observe(.value, with: { (snapshot: DataSnapshot!) in
             print(snapshot.childrenCount)
             

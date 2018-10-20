@@ -23,6 +23,7 @@
 		AD111ADE21763A380096CEBE /* UploadPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD111ADD21763A380096CEBE /* UploadPhotoController.swift */; };
 		AD111AE021763A430096CEBE /* Discover.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD111ADF21763A430096CEBE /* Discover.swift */; };
 		AD111AE221763A500096CEBE /* UserFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD111AE121763A500096CEBE /* UserFeed.swift */; };
+		AD57C838217B17360081FD77 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD57C837217B17360081FD77 /* Filter.swift */; };
 		ADB13C1D2177540300526F7D /* UploadPhotoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB13C1C2177540300526F7D /* UploadPhotoHeader.swift */; };
 		ADB13C1F217754A600526F7D /* UploadPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB13C1E217754A600526F7D /* UploadPhotoCell.swift */; };
 		ADB13C21217755BE00526F7D /* PostPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB13C20217755BE00526F7D /* PostPhotoController.swift */; };
@@ -61,6 +62,7 @@
 		AD111ADD21763A380096CEBE /* UploadPhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPhotoController.swift; sourceTree = "<group>"; };
 		AD111ADF21763A430096CEBE /* Discover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discover.swift; sourceTree = "<group>"; };
 		AD111AE121763A500096CEBE /* UserFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFeed.swift; sourceTree = "<group>"; };
+		AD57C837217B17360081FD77 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		ADB13C1C2177540300526F7D /* UploadPhotoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPhotoHeader.swift; sourceTree = "<group>"; };
 		ADB13C1E217754A600526F7D /* UploadPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPhotoCell.swift; sourceTree = "<group>"; };
 		ADB13C20217755BE00526F7D /* PostPhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPhotoController.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				ADB13C20217755BE00526F7D /* PostPhotoController.swift */,
 				ADEC96D2217994AB001A1E01 /* Camera.swift */,
 				ADEC96D4217996BA001A1E01 /* PreviewPhoto.swift */,
+				AD57C837217B17360081FD77 /* Filter.swift */,
 			);
 			path = Photo;
 			sourceTree = "<group>";
@@ -339,6 +342,9 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Instagram_Pro/Pods-Instagram_Pro-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/CropViewController/CropViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -346,6 +352,9 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CropViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -364,6 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				648681A121795DF10047F411 /* CommentInputTextView.swift in Sources */,
+				AD57C838217B17360081FD77 /* Filter.swift in Sources */,
 				648681A321795E5F0047F411 /* CommentInputAccessoryView.swift in Sources */,
 				AD111ADA217620D80096CEBE /* Login.swift in Sources */,
 				ADB13C1F217754A600526F7D /* UploadPhotoCell.swift in Sources */,
