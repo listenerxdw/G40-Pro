@@ -17,15 +17,6 @@ class PostPhotoController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(handlePost))
-        
-        setupImageAndTextViews()
-    }
-    
     let imageView: UIImageView = {
         let iv = UIImageView()
         iv.backgroundColor = .white
@@ -40,18 +31,39 @@ class PostPhotoController: UIViewController {
         return tv
     }()
     
-    fileprivate func setupImageAndTextViews() {
-        let containerView = UIView()
-        containerView.backgroundColor = .white
+    
+    
+    
+    fileprivate func saveToDatabaseWithImageUrl(imageUrl: String) {
+        guard let postImage = selectedImage else { return }
+        guard let caption = textView.text else { return }
         
-        view.addSubview(containerView)
-        containerView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 90, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 140)
+        guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        containerView.addSubview(imageView)
-        imageView.anchor(top: containerView.topAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 100, height: 100)
+        let userPostRef = Database.database().reference().child("posts").child(uid)
+        let ref = userPostRef.childByAutoId()
         
-        containerView.addSubview(textView)
-        textView.anchor(top: containerView.topAnchor, left: imageView.rightAnchor, bottom: containerView.bottomAnchor, right: containerView.rightAnchor, paddingTop: 0, paddingLeft: 4, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        let values = ["imageUrl": imageUrl, "caption": caption, "imageWidth": postImage.size.width, "imageHeight": postImage.size.height, "creationDate": Date().timeIntervalSince1970] as [String : Any]
+        
+        ref.updateChildValues(values) { (err, ref) in
+            if let err = err {
+                self.navigationItem.rightBarButtonItem?.isEnabled = true
+                print("Failed to save post to DB", err)
+                return
+            }
+            print("Successfully saved post to DB")
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = UIColor.quickSetRGB(red: 240, green: 240, blue: 240)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(handlePost))
+        
+        setupImageAndTextViews()
     }
     
     @objc func handlePost() {
@@ -87,31 +99,26 @@ class PostPhotoController: UIViewController {
         }
     }
     
-    fileprivate func saveToDatabaseWithImageUrl(imageUrl: String) {
-        guard let postImage = selectedImage else { return }
-        guard let caption = textView.text else { return }
+    fileprivate func setupImageAndTextViews() {
+        let containerView = UIView()
+        containerView.backgroundColor = .white
         
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+        view.addSubview(containerView)
+        containerView.quickSetAnchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 90, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 140)
         
-        let userPostRef = Database.database().reference().child("posts").child(uid)
-        let ref = userPostRef.childByAutoId()
+        containerView.addSubview(imageView)
+        imageView.quickSetAnchor(top: containerView.topAnchor, left: containerView.leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 100, height: 100)
         
-        let values = ["imageUrl": imageUrl, "caption": caption, "imageWidth": postImage.size.width, "imageHeight": postImage.size.height, "creationDate": Date().timeIntervalSince1970] as [String : Any]
-        
-        ref.updateChildValues(values) { (err, ref) in
-            if let err = err {
-                self.navigationItem.rightBarButtonItem?.isEnabled = true
-                print("Failed to save post to DB", err)
-                return
-            }
-            
-            print("Successfully saved post to DB")
-            self.dismiss(animated: true, completion: nil)
-        }
+        containerView.addSubview(textView)
+        textView.quickSetAnchor(top: containerView.topAnchor, left: imageView.rightAnchor, bottom: containerView.bottomAnchor, right: containerView.rightAnchor, paddingTop: 0, paddingLeft: 4, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
     }
     
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    
+    
+    
+    
 
 }

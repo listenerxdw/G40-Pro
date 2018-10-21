@@ -17,11 +17,11 @@ class Login: UIViewController {
         logoImageView.contentMode = .scaleAspectFill
         
         view.addSubview(logoImageView)
-        logoImageView.anchor(top: nil, left: nil, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 100, height: 100)
+        logoImageView.quickSetAnchor(top: nil, left: nil, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 100, height: 100)
         logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         logoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
-        view.backgroundColor = .white//UIColor.rgb(red: 0, green: 120, blue: 175)
+        view.backgroundColor = .white
         return view
     }()
     
@@ -53,17 +53,17 @@ class Login: UIViewController {
         
         if isFormValid {
             loginButton.isEnabled = true
-            loginButton.backgroundColor = UIColor.rgb(red: 17, green: 154, blue: 237)
+            loginButton.backgroundColor = UIColor.quickSetRGB(red: 17, green: 154, blue: 237)
         } else {
             loginButton.isEnabled = false
-            loginButton.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
+            loginButton.backgroundColor = UIColor.quickSetRGB(red: 149, green: 204, blue: 244)
         }
     }
     
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Login", for: .normal)
-        button.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
+        button.backgroundColor = UIColor.quickSetRGB(red: 149, green: 204, blue: 244)
         
         button.layer.cornerRadius = 5
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
@@ -113,12 +113,12 @@ class Login: UIViewController {
         return label
     }()
     
-    let dontHaveAccountButton: UIButton = {
+    let DoNotHavAccountBtn: UIButton = {
         let button = UIButton(type: .system)
         
         let attributedTitle = NSMutableAttributedString(string: "Don't have an account?  ", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14), NSAttributedStringKey.foregroundColor: UIColor.lightGray])
         
-        attributedTitle.append(NSAttributedString(string: "Sign Up", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor: UIColor.rgb(red: 17, green: 154, blue: 237)
+        attributedTitle.append(NSAttributedString(string: "Sign Up", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor: UIColor.quickSetRGB(red: 17, green: 154, blue: 237)
             ]))
         
         button.setAttributedTitle(attributedTitle, for: .normal)
@@ -136,6 +136,7 @@ class Login: UIViewController {
         return .lightContent
     }
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -143,16 +144,24 @@ class Login: UIViewController {
         
         view.backgroundColor = .white
         
-        view.addSubview(logoContainerView)
-        logoContainerView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 150)
+        setupLogocontainer()
         
-        
-        view.addSubview(dontHaveAccountButton)
-        dontHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
+        setupDonthaveAccountBtn()
 
-        // Do any additional setup after loading the view.
         setupInputFields()
+        
         setupStatusLabel()
+    }
+    
+    fileprivate func setupLogocontainer() {
+        view.addSubview(logoContainerView)
+        logoContainerView.quickSetAnchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 150)
+    }
+    
+    
+    fileprivate func setupDonthaveAccountBtn() {
+        view.addSubview(DoNotHavAccountBtn)
+        DoNotHavAccountBtn.quickSetAnchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
     }
     
     fileprivate func setupInputFields() {
@@ -163,13 +172,9 @@ class Login: UIViewController {
         stackView.distribution = .fillEqually
         
         view.addSubview(stackView)
-        stackView.anchor(top: logoContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 40, paddingLeft: 40, paddingBottom: 0, paddingRight: 40, width: 0, height: 140)
+        stackView.quickSetAnchor(top: logoContainerView.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 40, paddingLeft: 40, paddingBottom: 0, paddingRight: 40, width: 0, height: 140)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     fileprivate func setupStatusLabel() {
         view.addSubview(statusLabel)

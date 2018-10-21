@@ -18,8 +18,6 @@ class UserFeed: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateFeed), name: SharePhotoController.updateFeedNotificationName, object: nil)
-        //
         collectionView?.backgroundColor = .white
         
         collectionView?.register(UserFeedPostCell.self, forCellWithReuseIdentifier: cellId)
@@ -33,10 +31,7 @@ class UserFeed: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         fetchAllPosts()
     }
     
-   //@objc func handleUpdateFeed() {
-   //     handleRefresh()
-    //}
-    
+
     @objc func handleRefresh() {
         print("Handling refresh..")
         self.posts.removeAll()
@@ -137,11 +132,9 @@ class UserFeed: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
     }
     
     func setupNavigationItems() {
-        //navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "logo"))
         navigationItem.title = "Instagram_G40"
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(gearButtonPressed))
-        //        navigationItem.rightBarButtonItem?.image = #imageLiteral(resourceName: "gear")
         navigationItem.rightBarButtonItem?.isEnabled = true
         
     }

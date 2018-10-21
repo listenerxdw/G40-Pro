@@ -5,7 +5,6 @@
 //  Created by DAWEIXU on 2018/10/17.
 //  Copyright © 2018 unimelb_daweixu. All rights reserved.
 //
-
 import UIKit
 import Photos
 import CropViewController
@@ -18,47 +17,36 @@ class UploadPhotoController: UICollectionViewController, UICollectionViewDelegat
     var selectedImage: UIImage?
     var images = [UIImage]()
     var assets = [PHAsset]()
+    
+    var header: UploadPhotoHeader?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.backgroundColor = .white
         
-        collectionView?.register(UploadPhotoCell.self, forCellWithReuseIdentifier: cellId)
-        
+        //register header
         collectionView?.register(UploadPhotoHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId)
+        
+        //register cell
+        collectionView?.register(UploadPhotoCell.self, forCellWithReuseIdentifier: cellId)
         
         setupNavigationButtons()
         
         fetchPhotos()
-        
-        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.selectedImage = images[indexPath.item]
         self.collectionView?.reloadData()
-        
         let indexPath = IndexPath(item: 0, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
     }
     
-    fileprivate func assetsFetchOptions() -> PHFetchOptions {
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.fetchLimit = 30
-        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
-        fetchOptions.sortDescriptors = [sortDescriptor]
-        return fetchOptions
-    }
     
     fileprivate func fetchPhotos() {
         let allPhotos = PHAsset.fetchAssets(with: .image, options: assetsFetchOptions())
-        
         DispatchQueue.global(qos: .background).async {
             allPhotos.enumerateObjects({ (asset, count, stop) in
                 let imageManager = PHImageManager.default()
@@ -88,6 +76,15 @@ class UploadPhotoController: UICollectionViewController, UICollectionViewDelegat
         }
     }
     
+    fileprivate func assetsFetchOptions() -> PHFetchOptions {
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.fetchLimit = 30
+        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
+        fetchOptions.sortDescriptors = [sortDescriptor]
+        return fetchOptions
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0)
     }
@@ -97,7 +94,6 @@ class UploadPhotoController: UICollectionViewController, UICollectionViewDelegat
         return CGSize(width: width, height: width)
     }
     
-    var header: UploadPhotoHeader?
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! UploadPhotoHeader
@@ -112,11 +108,8 @@ class UploadPhotoController: UICollectionViewController, UICollectionViewDelegat
                 let imageManager = PHImageManager.default()
                 let targetSize = CGSize(width: 600, height: 600)
                 imageManager.requestImage(for: selectedAsset, targetSize: targetSize, contentMode: .default, options: nil, resultHandler: { (image, info) in
-                    
                     header.photoImageView.image = image
-                    
                 })
-                
             }
         }
         return header
@@ -138,12 +131,10 @@ class UploadPhotoController: UICollectionViewController, UICollectionViewDelegat
         return images.count
     }
     
-    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! UploadPhotoCell
         
         cell.photoImageView.image = images[indexPath.item]
-        
         return cell
     }
     
@@ -154,24 +145,18 @@ class UploadPhotoController: UICollectionViewController, UICollectionViewDelegat
     fileprivate func setupNavigationButtons() {
         navigationController?.navigationBar.tintColor = .black
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(handleNext))
     }
     
+    //when finish select
     @objc func handleNext() {
         let cropViewController = CropViewController(image: (header?.photoImageView.image)!)
         cropViewController.delegate = self
         present(cropViewController, animated: true, completion: nil)
-        //let postPhotoController = PostPhotoController()
-        //postPhotoController.selectedImage = header?.photoImageView.image
-        //navigationController?.pushViewController(postPhotoController, animated: true)
     }
     
+    //when finish crop
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        // 'image' is the newly cropped version of the original image
-        //let postPhotoController = PostPhotoController()
-        //postPhotoController.selectedImage = image
-        //navigationController?.pushViewController(postPhotoController, animated: true)
         let filter = Filter()
         filter.image = image
         navigationController?.pushViewController(filter, animated: true)

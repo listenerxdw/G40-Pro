@@ -5,13 +5,13 @@
 //  Created by Srujan Valluri on 18/10/18.
 //  Copyright © 2018 unimelb_daweixu. All rights reserved.
 //
-
 import Foundation
 
+
+//Struct of Comment
 struct CommentModel {
     
     let user: User
-    
     let text: String
     let uid: String
     

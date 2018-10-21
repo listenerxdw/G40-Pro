@@ -32,7 +32,7 @@ class Filter: UIViewController {
     let FilterOneButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Filter One", for: .normal)
-        button.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
+        button.backgroundColor = UIColor.quickSetRGB(red: 149, green: 204, blue: 244)
         
         button.layer.cornerRadius = 5
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
@@ -48,7 +48,7 @@ class Filter: UIViewController {
     let FilterTwoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Filter Two", for: .normal)
-        button.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
+        button.backgroundColor = UIColor.quickSetRGB(red: 149, green: 204, blue: 244)
         
         button.layer.cornerRadius = 5
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
@@ -64,7 +64,7 @@ class Filter: UIViewController {
     let FilterThreeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Filter Three", for: .normal)
-        button.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
+        button.backgroundColor = UIColor.quickSetRGB(red: 149, green: 204, blue: 244)
         
         button.layer.cornerRadius = 5
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
@@ -80,7 +80,7 @@ class Filter: UIViewController {
     let OriginalImgButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Original Image", for: .normal)
-        button.backgroundColor = UIColor.rgb(red: 211, green: 211, blue: 211)
+        button.backgroundColor = UIColor.quickSetRGB(red: 211, green: 211, blue: 211)
         
         button.layer.cornerRadius = 5
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 10)
@@ -92,34 +92,6 @@ class Filter: UIViewController {
         
         return button
     }()
-    /*
-    let brightnessValue: UILabel = {
-        let label = UILabel()
-        label.text = "100"
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    */
-    
-    //    var brightnessSlider: UISlider!
-    /*
-        {
-        let slider = UISlider(frame:CGRect(x: 0, y: 0, width: self.view.frame.width, height: 20))
-        slider.maximumValue = 100
-        slider.minimumValue = 0
-        slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.isContinuous = true
-        slider.tintColor = .green
-        slider.addTarget(self, action: #selector(sliderValueDidChange(_:)), for: .valueChanged)
-        return slider
-    }()
-     */
-    //@objc func sliderValueDidChange(_ sender:UISlider!) {
-        //print("Slider value changed")
-        //brightnessValue.text = String(Int(sender.value))
-    //}
     
     var brightnessValueLabel: UILabel!
     var brightnessSlider: UISlider!
@@ -127,6 +99,8 @@ class Filter: UIViewController {
     var contrastValueLabel: UILabel!
     var contrastSlider: UISlider!
 
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -134,24 +108,38 @@ class Filter: UIViewController {
         
         originalImage = self.imageView.image
         
-        view.addSubview(imageView)
-        imageView.anchor(top: nil, left: nil, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: self.view.frame.width, height: 400)
+        setupImageView()
         
+        setupFilterButton()
+        
+        setupBrightnessSlider()
+        
+        setupContrastSlider()
+        
+    }
+    
+    fileprivate func setupImageView() {
+        view.addSubview(imageView)
+        imageView.quickSetAnchor(top: nil, left: nil, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: self.view.frame.width, height: 400)
+    }
+    
+    fileprivate func setupFilterButton() {
         view.addSubview(FilterOneButton)
-        FilterOneButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 40, paddingBottom: -80, paddingRight: 0, width: 80, height: 80)
+        FilterOneButton.quickSetAnchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 40, paddingBottom: -80, paddingRight: 0, width: 80, height: 80)
         
         view.addSubview(FilterTwoButton)
-        FilterTwoButton.anchor(top: nil, left: nil, bottom: view.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: -80, paddingRight: 0, width: 80, height: 80)
+        FilterTwoButton.quickSetAnchor(top: nil, left: nil, bottom: view.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: -80, paddingRight: 0, width: 80, height: 80)
         FilterTwoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(FilterThreeButton)
-        FilterThreeButton.anchor(top: nil, left: nil, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: -80, paddingRight: 40, width: 80, height: 80)
+        FilterThreeButton.quickSetAnchor(top: nil, left: nil, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: -80, paddingRight: 40, width: 80, height: 80)
         
         view.addSubview(OriginalImgButton)
-        OriginalImgButton.anchor(top: nil, left: nil, bottom: FilterTwoButton.topAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: -30, paddingRight: 0, width: 80, height: 80)
+        OriginalImgButton.quickSetAnchor(top: nil, left: nil, bottom: FilterTwoButton.topAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: -30, paddingRight: 0, width: 80, height: 80)
         OriginalImgButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        
+    }
+    
+    fileprivate func setupBrightnessSlider() {
         brightnessValueLabel = UILabel()
         brightnessValueLabel.frame = CGRect(x:0, y:0, width: 200, height: 20)
         brightnessValueLabel.text = "Brightness"
@@ -166,21 +154,22 @@ class Filter: UIViewController {
         brightnessValueLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 40).isActive = true
         
         
-        
         brightnessSlider = UISlider(frame: CGRect(x:0, y:0,width: 300, height:20))
         brightnessSlider.center = self.view.center
         brightnessSlider.minimumValue = -0.2
         brightnessSlider.maximumValue = 0.2
         brightnessSlider.value = 0
         brightnessSlider.tintColor = UIColor.cyan
-        brightnessSlider.thumbTintColor = UIColor.rgb(red: 211, green: 211, blue: 211)
+        brightnessSlider.thumbTintColor = UIColor.quickSetRGB(red: 211, green: 211, blue: 211)
         brightnessSlider.isContinuous = true
         brightnessSlider.addTarget(self, action: #selector(brightnessChanged(sender:)), for: UIControlEvents.valueChanged)
         brightnessSlider.isHidden = false
         brightnessSlider.isEnabled = true
         self.view.addSubview(brightnessSlider)
         brightnessSlider.topAnchor.constraint(equalTo: brightnessValueLabel.bottomAnchor, constant: 10).isActive = true
-        
+    }
+    
+    fileprivate func setupContrastSlider() {
         contrastValueLabel = UILabel()
         contrastValueLabel.frame = CGRect(x:0, y:0, width: 200, height: 20)
         contrastValueLabel.text = "Contrast"
@@ -201,15 +190,14 @@ class Filter: UIViewController {
         contrastSlider.maximumValue = 0.1
         contrastSlider.value = 0
         contrastSlider.tintColor = UIColor.cyan
-        contrastSlider.thumbTintColor = UIColor.rgb(red: 211, green: 211, blue: 211)
+        contrastSlider.thumbTintColor = UIColor.quickSetRGB(red: 211, green: 211, blue: 211)
         contrastSlider.isContinuous = true
         contrastSlider.addTarget(self, action: #selector(contrastChanged(sender:)), for: UIControlEvents.valueChanged)
         contrastSlider.isHidden = false
         contrastSlider.isEnabled = true
         self.view.addSubview(contrastSlider)
         contrastSlider.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        contrastSlider.anchor(top: contrastValueLabel.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 10, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 300, height:20)
-        
+        contrastSlider.quickSetAnchor(top: contrastValueLabel.bottomAnchor, left: nil, bottom: nil, right: nil, paddingTop: 10, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 300, height:20)
     }
     
     @objc func FilterOne(){
@@ -223,7 +211,7 @@ class Filter: UIViewController {
     @objc func FilterTwo(){
         let image = originalImage
         
-        let sepiaImage = image?.af_imageFiltered(withCoreImageFilter: "CIPhotoEffectChrome")
+        let sepiaImage = image?.af_imageFiltered(withCoreImageFilter: "CIColorInvert")
         
         self.imageView.image = sepiaImage
     }
@@ -231,7 +219,7 @@ class Filter: UIViewController {
     @objc func FilterThree(){
         let image = originalImage
         
-        let sepiaImage = image?.af_imageFiltered(withCoreImageFilter: "CIColorInvert")
+        let sepiaImage = image?.af_imageFiltered(withCoreImageFilter: "CIColorMonochrome")
         
         self.imageView.image = sepiaImage
     }
@@ -253,9 +241,6 @@ class Filter: UIViewController {
         
         self.imageView.image = originalImage?.af_imageFiltered(withCoreImageFilter: "CIColorControls", parameters: filterParameters)
     }
-    
-    
-    
     
     @objc func handleNext(){
         let postPhotoController = PostPhotoController()

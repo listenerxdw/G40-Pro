@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 
 class Camera: UIViewController, AVCapturePhotoCaptureDelegate {
+    
     let dismissButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "return"), for: .normal)
@@ -35,7 +36,6 @@ class Camera: UIViewController, AVCapturePhotoCaptureDelegate {
         
         let settings = AVCapturePhotoSettings()
         
-        // do not execute camera capture for simulator
         #if (!arch(x86_64))
         guard let previewFormatType = settings.availablePreviewPhotoPixelFormatTypes.first else { return }
         
@@ -78,34 +78,56 @@ class Camera: UIViewController, AVCapturePhotoCaptureDelegate {
         }
     }
     
+    let output = AVCapturePhotoOutput()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCaptureSession()
-        setupHUD()
-        // Do any additional setup after loading the view.
+        setupCameraView()
     }
     
-    override var prefersStatusBarHidden: Bool {
-        return true
+    
+    fileprivate func setupCaptureSession() {
+        let captureSession = AVCaptureSession()
+        
+        //setup inputs
+        guard let captureDevice = AVCaptureDevice.default(for: .video) else { return }
+        
+        do {
+            let input = try AVCaptureDeviceInput(device: captureDevice)
+            if captureSession.canAddInput(input) {
+                captureSession.addInput(input)
+            }
+        } catch let err {
+            print("Could not setup camera input:", err)
+        }
+        
+        //setup outputs
+        if captureSession.canAddOutput(output) {
+            captureSession.addOutput(output)
+        }
+        
+        //setup output preview
+        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer.frame = view.frame
+        view.layer.addSublayer(previewLayer)
+        
+        captureSession.startRunning()
     }
+
     
-   
-    
-    fileprivate func setupHUD() {
+    fileprivate func setupCameraView() {
         view.addSubview(capturePhotoButton)
-        capturePhotoButton.anchor(top: nil, left: nil, bottom: view.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: -30, paddingRight: 0, width: 80, height: 80)
+        capturePhotoButton.quickSetAnchor(top: nil, left: nil, bottom: view.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: -30, paddingRight: 0, width: 80, height: 80)
         capturePhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(dismissButton)
-        dismissButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 12, paddingLeft: 12, paddingBottom: 0, paddingRight: 0, width: 50, height: 50)
+        dismissButton.quickSetAnchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 12, paddingLeft: 12, paddingBottom: 0, paddingRight: 0, width: 50, height: 50)
         
         view.addSubview(flashlightButton)
-        flashlightButton.anchor(top: view.topAnchor, left: nil, bottom: nil, right: view.rightAnchor, paddingTop: 23, paddingLeft: 0, paddingBottom: 0, paddingRight: 18, width: 25, height: 25)
-        
+        flashlightButton.quickSetAnchor(top: view.topAnchor, left: nil, bottom: nil, right: view.rightAnchor, paddingTop: 23, paddingLeft: 0, paddingBottom: 0, paddingRight: 18, width: 25, height: 25)
         
         drawGridView()
-        
         
     }
     
@@ -123,15 +145,13 @@ class Camera: UIViewController, AVCapturePhotoCaptureDelegate {
         let shapeLayer = CAShapeLayer()
         shapeLayer.strokeColor = UIColor.lightGray.cgColor
         shapeLayer.lineWidth = 1
-        shapeLayer.lineDashPattern = [7, 3] // 7 is the length of dash, 3 is length of the gap.
-        
+        shapeLayer.lineDashPattern = [7, 3]
+
         let path = CGMutablePath()
         path.addLines(between: [p0, p1])
         shapeLayer.path = path
         view.layer.addSublayer(shapeLayer)
     }
-    
-    
     
     
     func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
@@ -143,42 +163,13 @@ class Camera: UIViewController, AVCapturePhotoCaptureDelegate {
         let containerView = PreviewPhoto()
         containerView.previewImageView.image = previewImage
         view.addSubview(containerView)
-        containerView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-        
-        /*let previewImageView = UIImageView(image: previewImage)
-         view.addSubview(previewImageView)
-         previewImageView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-         
-         print("Finish processing photo sample buffer...")*/
+        containerView.quickSetAnchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
     }
-    let output = AVCapturePhotoOutput()
-    fileprivate func setupCaptureSession() {
-        let captureSession = AVCaptureSession()
-        
-        //1. setup inputs
-        guard let captureDevice = AVCaptureDevice.default(for: .video) else { return }
-        
-        do {
-            let input = try AVCaptureDeviceInput(device: captureDevice)
-            if captureSession.canAddInput(input) {
-                captureSession.addInput(input)
-            }
-        } catch let err {
-            print("Could not setup camera input:", err)
-        }
-        
-        //2. setup outputs
-        if captureSession.canAddOutput(output) {
-            captureSession.addOutput(output)
-        }
-        
-        //3. setup output preview
-        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.frame = view.frame
-        view.layer.addSublayer(previewLayer)
-        
-        captureSession.startRunning()
+    
+   
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
-
+    
 }

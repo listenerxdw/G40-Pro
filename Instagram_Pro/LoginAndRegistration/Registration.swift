@@ -251,7 +251,7 @@ class Registration: UIViewController,UIImagePickerControllerDelegate, UINavigati
         
         let attributedTitle = NSMutableAttributedString(string: "Already have an account?  ", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14), NSAttributedStringKey.foregroundColor: UIColor.lightGray])
         
-        attributedTitle.append(NSAttributedString(string: "Sign In", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor: UIColor.rgb(red: 17, green: 154, blue: 237)
+        attributedTitle.append(NSAttributedString(string: "Sign In", attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor: UIColor.quickSetRGB(red: 17, green: 154, blue: 237)
             ]))
         
         button.setAttributedTitle(attributedTitle, for: .normal)
@@ -266,7 +266,7 @@ class Registration: UIViewController,UIImagePickerControllerDelegate, UINavigati
     
     fileprivate func setupAlreadyHavAccountButton() {
         view.addSubview(alreadyHaveAccountButton)
-        alreadyHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
+        alreadyHaveAccountButton.quickSetAnchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
     }
     
     override func viewDidLoad() {
@@ -288,12 +288,6 @@ class Registration: UIViewController,UIImagePickerControllerDelegate, UINavigati
         setupStatusLabel()
         
         setupAlreadyHavAccountButton()
-        
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
         
     }
     
@@ -332,7 +326,7 @@ class Registration: UIViewController,UIImagePickerControllerDelegate, UINavigati
         
         view.addSubview(stackView)
         
-        stackView.anchor(top: uploadProfilePicBtn.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 30, paddingLeft: 40, paddingBottom: 0, paddingRight: 40, width: 0, height: 180)
+        stackView.quickSetAnchor(top: uploadProfilePicBtn.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 30, paddingLeft: 40, paddingBottom: 0, paddingRight: 40, width: 0, height: 180)
         
     }
     
@@ -355,34 +349,6 @@ class Registration: UIViewController,UIImagePickerControllerDelegate, UINavigati
     
     
 }
-extension UIView {
-    func anchor(top: NSLayoutYAxisAnchor?, left: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, right: NSLayoutXAxisAnchor?,  paddingTop: CGFloat, paddingLeft: CGFloat, paddingBottom: CGFloat, paddingRight: CGFloat, width: CGFloat, height: CGFloat) {
-        
-        translatesAutoresizingMaskIntoConstraints = false
-        
-        if let top = top {
-            self.topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
-        }
-        
-        if let left = left {
-            self.leftAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true
-        }
-        
-        if let bottom = bottom {
-            bottomAnchor.constraint(equalTo: bottom, constant: paddingBottom).isActive = true
-        }
-        
-        if let right = right {
-            rightAnchor.constraint(equalTo: right, constant: -paddingRight).isActive = true
-        }
-        
-        if width != 0 {
-            widthAnchor.constraint(equalToConstant: width).isActive = true
-        }
-        
-        if height != 0 {
-            heightAnchor.constraint(equalToConstant: height).isActive = true
-        }
-    }
-}
+
+
 

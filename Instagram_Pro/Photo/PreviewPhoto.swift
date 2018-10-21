@@ -74,7 +74,6 @@ class PreviewPhoto: UIView {
                     savedLabel.layer.transform = CATransform3DMakeScale(1, 1, 1)
                     
                 }, completion: { (completed) in
-                    //completed
                     
                     UIView.animate(withDuration: 0.5, delay: 0.75, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
                         
@@ -94,55 +93,32 @@ class PreviewPhoto: UIView {
         }
         
     }
-    /*
-    let filter1Button: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Filter:SepiaTone", for: .normal)
-        button.addTarget(self, action: #selector(handleFilter1), for: .touchUpInside)
-        return button
-    }()
-    
-    @objc func handleFilter1(){
-        let inputImage = previewImageView.image
-        let context = CIContext(options: nil)
-        if let currentFilter = CIFilter(name: "CISepiaTone"){
-            let beginImage = CIImage(image: inputImage!)
-            currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
-            currentFilter.setValue(0.5, forKey: kCIInputIntensityKey)
-            if let output = currentFilter.outputImage {
-                if let cgimg = context.createCGImage(output, from: output.extent) {
-                    let processedImage = UIImage(cgImage: cgimg)
-                    previewImageView.image = processedImage
-                }
-        }
-        }
- */
-    
-    
-    
-    
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .black
         
-        addSubview(previewImageView)
-        previewImageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        setupPreviewImageView()
         
-        addSubview(cancelButton)
-        cancelButton.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 12, paddingLeft: 12, paddingBottom: 0, paddingRight: 0, width: 50, height: 50)
+        setupCancelButton()
         
-        addSubview(saveButton)
-        saveButton.anchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 12, paddingLeft: 0, paddingBottom: 0, paddingRight: 12, width: 50, height: 50)
-        /*
-        addSubview(filter1Button)
-        filter1Button.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 12, paddingBottom: 12, paddingRight: 0, width: 50, height: 50)
-        */
-        
+        setupSaveButton()
     }
- 
     
+    fileprivate func setupPreviewImageView() {
+        addSubview(previewImageView)
+        previewImageView.quickSetAnchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+    }
+    
+    fileprivate func setupCancelButton() {
+        addSubview(cancelButton)
+        cancelButton.quickSetAnchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 12, paddingLeft: 12, paddingBottom: 0, paddingRight: 0, width: 50, height: 50)
+    }
+    
+    fileprivate func setupSaveButton() {
+        addSubview(saveButton)
+        saveButton.quickSetAnchor(top: topAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 12, paddingLeft: 0, paddingBottom: 0, paddingRight: 12, width: 50, height: 50)
+    }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

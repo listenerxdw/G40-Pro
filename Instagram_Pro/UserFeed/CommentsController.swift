@@ -23,7 +23,6 @@ class CommentsController: UICollectionViewController, UICollectionViewDelegateFl
         collectionView?.backgroundColor = .white
         collectionView?.alwaysBounceVertical = true
         collectionView?.keyboardDismissMode = .interactive
-        
         collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -50, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: -50, right: 0)
         
@@ -124,33 +123,6 @@ class CommentsController: UICollectionViewController, UICollectionViewDelegateFl
             self.containerView.clearCommentTextField()
         }
     }
-    
-    //    let commentTextField: UITextField = {
-    //        let textField = UITextField()
-    //        textField.placeholder = "Enter Comment"
-    //        return textField
-    //    }()
-    
-    //    @objc func handleSubmit() {
-    //        guard let uid = Auth.auth().currentUser?.uid else { return }
-    //
-    //        print("post id:", self.post?.id ?? "")
-    //
-    //        print("Inserting comment:", commentTextField.text ?? "")
-    //
-    //        let postId = self.post?.id ?? ""
-    //        let values = ["text": commentTextField.text ?? "", "creationDate": Date().timeIntervalSince1970, "uid": uid] as [String : Any]
-    //
-    //        Database.database().reference().child("comments").child(postId).childByAutoId().updateChildValues(values) { (err, ref) in
-    //
-    //            if let err = err {
-    //                print("Failed to insert comment:", err)
-    //                return
-    //            }
-    //
-    //            print("Successfully inserted comment.")
-    //        }
-    //    }
     
     override var inputAccessoryView: UIView? {
         get {

@@ -5,10 +5,9 @@
 //  Created by Yuri on 2018/10/18.
 //  Copyright © 2018年 unimelb_daweixu. All rights reserved.
 //
-
-
 import Foundation
 
+//Struct of user
 struct User {
     
     let uid: String
