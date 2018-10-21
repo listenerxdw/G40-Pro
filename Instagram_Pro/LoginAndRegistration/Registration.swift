@@ -307,6 +307,7 @@ class Registration: UIViewController,UIImagePickerControllerDelegate, UINavigati
         // Do any additional setup after loading the view, typically from a nib.
         
         view.addSubview(uploadProfilePicBtn)
+        uploadProfilePicBtn.tintColor = .black
         uploadProfilePicBtn.heightAnchor.constraint(equalToConstant: 180).isActive = true
         uploadProfilePicBtn.widthAnchor.constraint(equalToConstant: 180).isActive = true
         uploadProfilePicBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -342,7 +343,7 @@ class Registration: UIViewController,UIImagePickerControllerDelegate, UINavigati
         signUpButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         signUpButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
         signUpButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        signUpButton.bottomAnchor.constraint(equalTo: repeatPasswordTextField.bottomAnchor, constant: 80).isActive = true
+        signUpButton.topAnchor.constraint(equalTo: repeatPasswordTextField.bottomAnchor, constant: 10).isActive = true
         
         
     }
@@ -350,7 +351,7 @@ class Registration: UIViewController,UIImagePickerControllerDelegate, UINavigati
     fileprivate func setupStatusLabel() {
         view.addSubview(statusLabel)
         statusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        statusLabel.topAnchor.constraint(equalTo: repeatPasswordTextField.bottomAnchor, constant: 12).isActive = true
+        statusLabel.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 12).isActive = true
     }
     
     

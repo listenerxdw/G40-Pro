@@ -6,6 +6,7 @@ class  ActivityCell: UICollectionViewCell {
         didSet{
             guard let post = post else {return}
             usernameLabel.text = post.user.username + " posts a picture "
+            
             profileImageView.loadImage(urlString: post.user.profileImageUrl)
             postImageView.loadImage(urlString: post.imageUrl)
             //timeLabel.text = post.creationDate.timeAgoDisplay()
@@ -24,7 +25,7 @@ class  ActivityCell: UICollectionViewCell {
     let timeLabel : UILabel = {
         let label = UILabel()
         label.text = "time"
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .gray
         return label
     }()
@@ -32,7 +33,7 @@ class  ActivityCell: UICollectionViewCell {
     let usernameLabel : UILabel = {
         let label = UILabel()
         label.text = "username"
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         return label
     }()
     

@@ -106,7 +106,7 @@ class Profile: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     func setupLogOutButton() {
         
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleLogOut))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "door").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleLogOut))
         
     }
     

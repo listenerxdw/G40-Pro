@@ -10,6 +10,17 @@ import UIKit
 import Firebase
 
 class Login: UIViewController {
+    
+    let logInLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Login"
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 30)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    
     let logoContainerView: UIView = {
         let view = UIView()
         
@@ -17,11 +28,11 @@ class Login: UIViewController {
         logoImageView.contentMode = .scaleAspectFill
         
         view.addSubview(logoImageView)
-        logoImageView.anchor(top: nil, left: nil, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 100, height: 100)
+        logoImageView.anchor(top: view.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 200, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 100, height: 100)
         logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        logoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        //logoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
-        view.backgroundColor = .white//UIColor.rgb(red: 0, green: 120, blue: 175)
+        view.backgroundColor = .white
         return view
     }()
     
@@ -66,7 +77,7 @@ class Login: UIViewController {
         button.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
         
         button.layer.cornerRadius = 5
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.setTitleColor(.white, for: .normal)
         
         button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
@@ -144,7 +155,7 @@ class Login: UIViewController {
         view.backgroundColor = .white
         
         view.addSubview(logoContainerView)
-        logoContainerView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 150)
+        logoContainerView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 300)
         
         
         view.addSubview(dontHaveAccountButton)
@@ -153,6 +164,7 @@ class Login: UIViewController {
         // Do any additional setup after loading the view.
         setupInputFields()
         setupStatusLabel()
+        setupLoginLabel()
     }
     
     fileprivate func setupInputFields() {
@@ -178,6 +190,12 @@ class Login: UIViewController {
         statusLabel.heightAnchor.constraint(equalToConstant: 80)
         statusLabel.widthAnchor.constraint(equalToConstant: 100)
         
+    }
+    
+    fileprivate func setupLoginLabel() {
+        view.addSubview(logInLabel)
+        logInLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        logInLabel.topAnchor.constraint(equalTo: view.topAnchor, constant:120).isActive = true
     }
     
 
