@@ -151,7 +151,7 @@ class TabBar: UITabBarController,UITabBarControllerDelegate {
         let PhotoNavController = templateNavController(Image: #imageLiteral(resourceName: "photo"),rootViewController: UploadPhotoController())
         
         //ActivityFeed
-        let ActivityFeedNavController = templateNavController(Image: #imageLiteral(resourceName: "activityfeed"),rootViewController: ActivityFeed())
+        let ActivityFeedNavController = templateNavController(Image: #imageLiteral(resourceName: "activityfeed"),rootViewController: ActivityFeed(collectionViewLayout: (UICollectionViewFlowLayout())))
         
         //Profile
         let layout = UICollectionViewFlowLayout()
