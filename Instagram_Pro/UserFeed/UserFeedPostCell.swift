@@ -95,6 +95,7 @@ class UserFeedPostCell: UICollectionViewCell {
         button.addTarget(self, action: #selector(handleLike), for: .touchUpInside)
         return button
     }()
+ 
     
     @objc func handleLike() {
         print("Handling like from within cell...")

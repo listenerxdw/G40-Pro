@@ -27,6 +27,7 @@ class ProfileHeader: UICollectionViewCell {
         guard let userId = user?.uid else { return }
         
         if currentLoggedInUserId == userId {
+            //edit profile
             editProfileFollowButton.isEnabled = false
         } else {
             
@@ -67,8 +68,9 @@ class ProfileHeader: UICollectionViewCell {
                 }
                 
                 print("Successfully unfollowed user:", self.user?.username ?? "")
-                self.editProfileFollowButton.isEnabled = true
+                
                 self.setupFollowStyle()
+                self.editProfileFollowButton.isEnabled = true
             })
             Database.database().reference().child("follower").child(userId).child(currentLoggedInUserId).removeValue(completionBlock: { (err, ref) in
                 if let err = err {
@@ -122,7 +124,27 @@ class ProfileHeader: UICollectionViewCell {
         let iv = CustomImageView()
         return iv
     }()
+    /*
+    let gridButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "ribbon"), for: .normal)
+        return button
+    }()
     
+    let listButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "ribbon"), for: .normal)
+        button.tintColor = UIColor(white: 0, alpha: 0.2)
+        return button
+    }()
+    
+    let bookmarkButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "ribbon"), for: .normal)
+        button.tintColor = UIColor(white: 0, alpha: 0.2)
+        return button
+    }()
+ */
     let usernameLabel: UILabel = {
         let label = UILabel()
         label.text = "username"
@@ -180,7 +202,7 @@ class ProfileHeader: UICollectionViewCell {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 1
-        button.layer.cornerRadius = 5
+        button.layer.cornerRadius = 3
         button.addTarget(self, action: #selector(handleEditProfileOrFollow), for: .touchUpInside)
         return button
     }()
@@ -193,17 +215,15 @@ class ProfileHeader: UICollectionViewCell {
         profileImageView.layer.cornerRadius = 80 / 2
         profileImageView.clipsToBounds = true
         
-        
+        //setupBottomToolbar()
         
         addSubview(usernameLabel)
-        usernameLabel.anchor(top: profileImageView.bottomAnchor, left: leftAnchor,bottom: bottomAnchor,  right: rightAnchor, paddingTop: -24, paddingLeft: 14, paddingBottom: -20, paddingRight: 12, width: 0, height: 0)
+        usernameLabel.anchor(top: profileImageView.bottomAnchor, left: leftAnchor,bottom: bottomAnchor,  right: rightAnchor, paddingTop: -16, paddingLeft: 16, paddingBottom: 0, paddingRight: 12, width: 0, height: 0)
         
         setupUserStatsView()
         
         addSubview(editProfileFollowButton)
         editProfileFollowButton.anchor(top: postsLabel.bottomAnchor, left: postsLabel.leftAnchor, bottom: nil, right: followingLabel.rightAnchor, paddingTop: 2, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 34)
-        
-        
     }
     
     fileprivate func setupUserStatsView() {

@@ -6,7 +6,6 @@ class  ActivityCell: UICollectionViewCell {
         didSet{
             guard let post = post else {return}
             usernameLabel.text = post.user.username + " posts a picture "
-            
             profileImageView.loadImage(urlString: post.user.profileImageUrl)
             postImageView.loadImage(urlString: post.imageUrl)
             //timeLabel.text = post.creationDate.timeAgoDisplay()
