@@ -11,11 +11,14 @@ import Firebase
 class ActivityFeed: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let cellId = "cellId"
+    //let cellId2 = "cellId2"
     override func viewDidLoad(){
         super.viewDidLoad()
         collectionView?.backgroundColor = .white
         
         collectionView?.register(ActivityCell.self, forCellWithReuseIdentifier: cellId)
+        //collectionView?.register(LikeCell.self, forCellWithReuseIdentifier: cellId2)
+
         collectionView?.alwaysBounceVertical = true
         
         
@@ -66,6 +69,7 @@ class ActivityFeed: UICollectionViewController, UICollectionViewDelegateFlowLayo
         
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height:  60)
     }

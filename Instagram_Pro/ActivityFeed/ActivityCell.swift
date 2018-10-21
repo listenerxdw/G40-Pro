@@ -28,7 +28,7 @@ class  ActivityCell: UICollectionViewCell {
     
     override init(frame:CGRect){
         super.init(frame:frame)
-        backgroundColor = .yellow
+        backgroundColor = .white
         addSubview(profileImageView)
         addSubview(usernameLabel)
         usernameLabel.anchor(top: topAnchor, left: profileImageView.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
